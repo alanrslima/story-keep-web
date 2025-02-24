@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { MemoryCard } from "@/components/ui";
 
 export default function Home() {
   return (
-    <main>
-      <Button />
+    <main className="h-screen w-screen flex items-center">
+      <MemoryCard />
     </main>
   );
 }
