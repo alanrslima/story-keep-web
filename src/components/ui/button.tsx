@@ -9,6 +9,8 @@ export type ButtonVariants =
   | "minimal"
   | "outline";
 
+export type ButtonSize = "xs" | "sm" | "base" | "lg" | "xl";
+
 export type ButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
@@ -17,25 +19,35 @@ export type ButtonProps = React.DetailedHTMLProps<
   leadingIcon?: IconNames;
   trailingIcon?: IconNames;
   variant?: ButtonVariants;
+  full?: boolean;
+  size?: ButtonSize;
 };
 
 export function Button({
   title,
   leadingIcon,
   trailingIcon,
+  full,
   variant = "primary",
+  size = "base",
   ...rest
 }: ButtonProps) {
   return (
     <button
       {...rest}
       className={classNames(
-        "py-2 px-6 self-start items-center flex gap-2 rounded-full",
+        "py-2 px-6 justify-center items-center flex gap-2 rounded-full",
         {
+          "w-full": full,
           "bg-primary-light text-content-primary": variant === "primary",
           "bg-secondary text-primary-light": variant === "secondary",
           "bg-[rgba(0,0,0,0.4)] text-white": variant === "tertiary",
           "bg-transparent px-[0px] text-content-primary": variant === "minimal",
+          "h-[32px]": size === "xs",
+          "h-[36px]": size === "sm",
+          "h-[40px]": size === "base",
+          "h-[44px]": size === "lg",
+          "h-[48px]": size === "xl",
         }
       )}
     >

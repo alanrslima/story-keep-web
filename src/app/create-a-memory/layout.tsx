@@ -1,6 +1,6 @@
 "use client";
 
-import { MemoryProvider } from "./contexts/memory-context";
+import { MemoryProvider } from "../../contexts/memory-context";
 
 export default function CreateAMemoryLayout({
   children,

@@ -1,26 +1,31 @@
 "use client";
 
-import { Button, MemoryCard, ProgressBar } from "@/components/ui";
+import { Button, ProgressBar } from "@/components/ui";
 
 import { PropsWithChildren } from "react";
-import { useMemory } from "../hooks/use-memory";
 import Link from "next/link";
+import { MemoryCard } from "./memory-card";
+import { useMemory } from "@/hooks/use-memory";
 
 export type StepLayoutProps = PropsWithChildren & {
   percentage: number;
+  previousPercentage?: number;
   previousPath: string;
 };
 
 export function StepLayout(props: StepLayoutProps) {
-  const { name, date, location } = useMemory();
+  const { name, date, location, time } = useMemory();
 
   return (
     <div className="h-dvh w-dvw flex flex-col">
       <header className="h-16 w-full"></header>
-      <ProgressBar percentage={props.percentage} />
+      <ProgressBar
+        defaultValue={props.previousPercentage}
+        percentage={props.percentage}
+      />
       <main className="flex flex-1">
-        <div className="animate-fade-in-up max-w-[1120px] w-full mx-auto flex flex-col gap-6 lg:flex-row">
-          <section className="px-8 gap-8 flex flex-col justify-center flex-1 lg:flex-[0.6]">
+        <div className="animate-fade-in-up max-w-[1120px] w-full mx-auto flex flex-col md:flex-row">
+          <section className="box-border px-8 gap-8 flex flex-col justify-center flex-1 md:flex-[0.5]">
             <Link href={props.previousPath}>
               <Button
                 leadingIcon="ArrowLeft"
@@ -30,8 +35,13 @@ export function StepLayout(props: StepLayoutProps) {
             </Link>
             {props.children}
           </section>
-          <section className="items-center hidden lg:flex flex-[0.4] justify-center">
-            <MemoryCard title={name} date={date} location={location} />
+          <section className="items-center hidden md:flex flex-[0.5] justify-center">
+            <MemoryCard
+              time={time}
+              name={name}
+              date={date}
+              location={location}
+            />
           </section>
         </div>
       </main>

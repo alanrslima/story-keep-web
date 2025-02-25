@@ -5,7 +5,7 @@ import { NameForm } from "../components/name-form";
 
 export default function CreateAMemoryName() {
   return (
-    <StepLayout percentage={20} previousPath="/">
+    <StepLayout previousPercentage={0} percentage={20} previousPath="/">
       <NameForm onSubmit={async () => {}} />
     </StepLayout>
   );

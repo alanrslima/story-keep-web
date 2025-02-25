@@ -3,12 +3,12 @@ import { useMemory } from "@/hooks/use-memory";
 import Link from "next/link";
 import { FormEvent } from "react";
 
-export type DateFormProps = {
+export type TimeFormProps = {
   onSubmit(): Promise<void>;
 };
 
-export function DateForm(props: DateFormProps) {
-  const { setDate, date } = useMemory();
+export function TimeForm(props: TimeFormProps) {
+  const { setTime, time } = useMemory();
 
   const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -17,14 +17,14 @@ export function DateForm(props: DateFormProps) {
 
   return (
     <form className="flex gap-8 flex-col" onSubmit={onSubmit}>
-      <Typography type="title-section">Que dia será?</Typography>
+      <Typography type="title-section">Que horas?</Typography>
       <TextArea
-        value={date}
-        placeholder="dd/mm/yyyy"
-        onChange={(evt) => setDate(evt.target.value)}
+        value={time}
+        placeholder="20:00"
+        onChange={(evt) => setTime(evt.target.value)}
       />
       <div className="flex gap-4">
-        <Link href="time">
+        <Link href="location">
           <Button title="Continuar" />
         </Link>
       </div>

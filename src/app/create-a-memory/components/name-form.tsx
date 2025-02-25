@@ -1,7 +1,7 @@
 import { Button, TextArea, Typography } from "@/components/ui";
+import { useMemory } from "@/hooks/use-memory";
 import Link from "next/link";
 import { FormEvent } from "react";
-import { useMemory } from "../hooks/use-memory";
 
 export type NameFormProps = {
   onSubmit(): Promise<void>;

@@ -5,7 +5,7 @@ import { DateForm } from "../components/date-form";
 
 export default function CreateAMemoryDate() {
   return (
-    <StepLayout percentage={50} previousPath="name">
+    <StepLayout previousPercentage={20} percentage={40} previousPath="name">
       <DateForm onSubmit={async () => {}} />
     </StepLayout>
   );

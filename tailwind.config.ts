@@ -25,6 +25,10 @@ export default {
         "content-primary": "#050506",
         "content-secondary": "#454D54",
         "content-tertiary": "#67747E",
+        "interactive-primary": "#002733",
+        "interactive-secondary": "#F2EBE4",
+        "interactive-accent": "#FF7F50",
+        "border-neutral": "#B3B3B3",
       },
       animation: {
         "fade-in-up": "fadeInUp 0.75s ease-out",
@@ -33,7 +37,7 @@ export default {
         fadeInUp: {
           "0%": {
             opacity: "0",
-            transform: "translateY(20px)",
+            transform: "translateY(50px)",
           },
           "100%": {
             opacity: "1",

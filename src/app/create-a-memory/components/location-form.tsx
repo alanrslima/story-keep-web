@@ -1,7 +1,7 @@
 import { Button, TextArea, Typography } from "@/components/ui";
+import { useMemory } from "@/hooks/use-memory";
 import Link from "next/link";
 import { FormEvent } from "react";
-import { useMemory } from "../hooks/use-memory";
 
 export type LocationFormProps = {
   onSubmit(): Promise<void>;
@@ -24,7 +24,7 @@ export function LocationForm(props: LocationFormProps) {
         onChange={(evt) => setLocation(evt.target.value)}
       />
       <div className="flex gap-4">
-        <Link href="date">
+        <Link href="plans">
           <Button title="Continuar" />
         </Link>
       </div>
