@@ -43,6 +43,8 @@ export function Button({
           "bg-secondary text-primary-light": variant === "secondary",
           "bg-[rgba(0,0,0,0.4)] text-white": variant === "tertiary",
           "bg-transparent px-[0px] text-content-primary": variant === "minimal",
+          "bg-transparent border-[1px] border-border-neutral text-content-primary":
+            variant === "outline",
           "h-[32px]": size === "xs",
           "h-[36px]": size === "sm",
           "h-[40px]": size === "base",

@@ -35,7 +35,7 @@ export function MemoryCard({ name, date, location, time }: MemoryCardProps) {
           ? `url(${coverFoto})`
           : "url('/noisy-gradient-1.png')",
       }}
-      className="bg-cover w-full min-w-[300px] max-w-[350px] overflow-hidden rounded-md h-[530px] shadow-2xl shadow-neutral-500 flex flex-col"
+      className="bg-cover w-full min-w-[300px] max-w-[350px] overflow-hidden rounded-md h-[530px] shadow-2xl shadow-neutral-300 flex flex-col"
     >
       <div className="p-6 justify-end flex">
         <Button

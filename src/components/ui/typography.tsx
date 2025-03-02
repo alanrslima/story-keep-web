@@ -2,8 +2,14 @@ import { PropsWithChildren } from "react";
 import cn from "classnames";
 
 export type TypographyProps = PropsWithChildren & {
-  textColor?: string;
+  textColor?:
+    | "text-white"
+    | "text-black"
+    | "text-content-primary"
+    | "text-content-secondary"
+    | "text-content-tertiary";
   through?: boolean;
+  shadow?: boolean;
   center?: boolean;
   type?:
     | "button-small"
@@ -29,18 +35,22 @@ export function Typography({
   children,
   center,
   textColor,
+  shadow,
 }: TypographyProps) {
   return (
     <span
+      role=""
+      aria-level={1}
       className={cn("text-content_primary font-poppins", textColor, {
+        "drop-shadow-md": shadow,
         "line-through": through,
         "text-center": center,
-        "text-sm font-semibold": type === "button-small",
-        "text-base font-semibold": type === "button-default",
+        "text-sm font-semibold":
+          type === "button-small" || type === "body-default-bold",
+        "text-base font-semibold":
+          type === "button-default" || type === "body-large-bold",
         "text-sm": type === "body-default",
-        "text-sm font-bold": type === "body-default-bold",
         "text-base": type === "body-large",
-        "text-base font-bold": type === "body-large-bold",
         "text-lg font-semibold":
           type === "title-group" || type === "button-large",
         "text-xl font-semibold": type === "title-body",

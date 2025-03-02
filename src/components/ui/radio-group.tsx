@@ -8,8 +8,6 @@ import { Icon } from "./icon";
 export function RadioGroup() {
   const [selected, setSelected] = useState("option1");
 
-  console.log("selected", selected);
-
   return (
     <div className="flex gap-2 flex-col">
       <RadioItem
