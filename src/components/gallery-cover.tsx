@@ -1,6 +1,14 @@
+import { useRef } from "react";
+import { GalleryView, GalleryViewHandleProps } from "./gallery-view";
 import { Icon, Typography } from "./ui";
 
-export function GaleryCover() {
+export function GalleryCover() {
+  const galleryViewRef = useRef<GalleryViewHandleProps>(null);
+
+  const onPress = () => {
+    galleryViewRef.current?.show();
+  };
+
   return (
     <div className="grid relative gap-2 grid-cols-4 grid-rows-2 h-[420px]">
       <div
@@ -28,10 +36,14 @@ export function GaleryCover() {
       <div className="col-span-1 bg-red-300 cursor-pointer hover:opacity-80 transition-opacity" />
       <div className="col-span-1 bg-red-400 cursor-pointer hover:opacity-80 transition-opacity" />
 
-      <button className="absolute gap-2 flex items-center right-4 bottom-4 bg-white py-2 px-4 shadow-md rounded-md">
+      <button
+        onClick={onPress}
+        className="absolute gap-2 flex items-center right-4 bottom-4 bg-white py-2 px-4 shadow-md rounded-md"
+      >
         <Icon name="GalleryVerticalEnd" />
         <Typography type="button-small">Mostrar todos os registros</Typography>
       </button>
+      <GalleryView ref={galleryViewRef} />
     </div>
   );
 }

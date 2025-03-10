@@ -2,7 +2,7 @@ import { Typography } from "./typography";
 
 export function SimpleCard() {
   return (
-    <div className="max-w-[340px] rounded-md overflow-hidden w-full">
+    <div className="min-w-[220px] rounded-md overflow-hidden w-full">
       <div
         style={{
           backgroundImage:

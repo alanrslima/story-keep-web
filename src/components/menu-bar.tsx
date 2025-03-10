@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 const menuItems = [
   { text: "Home", pathname: "home" },
   { text: "Memórias", pathname: "memories" },
-  { text: "Encontrar fotógrafos", pathname: "photographers" },
-  { text: "Menu", pathname: "menu" },
+  // { text: "Encontrar fotógrafos", pathname: "photographers" },
+  { text: "Configurações", pathname: "settings" },
 ];
 
 export function MenuBar() {

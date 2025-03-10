@@ -9,3 +9,5 @@ export * from "./dialog";
 export * from "./item-tile";
 export * from "./qrcode";
 export * from "./menu-item";
+export * from "./headline";
+export * from "./modal";
