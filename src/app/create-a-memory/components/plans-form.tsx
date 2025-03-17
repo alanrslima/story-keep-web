@@ -1,15 +1,12 @@
 import { Button, RadioGroup, Typography } from "@/components/ui";
-import Link from "next/link";
+import { useMemory } from "@/hooks/use-memory";
 import { FormEvent } from "react";
 
-export type PlansFormProps = {
-  onSubmit(): Promise<void>;
-};
-
-export function PlansForm(props: PlansFormProps) {
+export function PlansForm() {
+  const { create } = useMemory();
   const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    await props.onSubmit();
+    create();
   };
 
   return (
@@ -20,12 +17,9 @@ export function PlansForm(props: PlansFormProps) {
           Escolha o pacote que mais se adapta a sua necessidade
         </Typography>
       </div>
-
       <RadioGroup />
       <div className="flex gap-4">
-        <Link href="success">
-          <Button title="Continuar" />
-        </Link>
+        <Button title="Continuar" />
       </div>
     </form>
   );

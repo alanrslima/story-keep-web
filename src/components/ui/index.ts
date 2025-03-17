@@ -11,3 +11,5 @@ export * from "./qrcode";
 export * from "./menu-item";
 export * from "./headline";
 export * from "./modal";
+export * from "./text-input";
+export * from "./divider";

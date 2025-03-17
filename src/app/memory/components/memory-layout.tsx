@@ -51,7 +51,7 @@ export function MemoryLayout() {
           </section>
           <div className="flex flex-col flex-1 gap-8">
             <GalleryCover />
-            <div className="flex flex-col">
+            <div className="flex flex-col" >
               <Headline title="Sobre o evento" />
               <Typography>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla,

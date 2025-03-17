@@ -67,7 +67,7 @@ export function MemoryCard({ name, date, location, time }: MemoryCardProps) {
               </Typography>
             )}
             {location && (
-              <div className="flex gap-2">
+              <div className="flex flex-1 gap-2">
                 <Icon name="MapPin" size={20} color="white" />
                 <Typography type="body-default" textColor="text-white">
                   {location}

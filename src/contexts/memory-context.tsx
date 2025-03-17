@@ -1,3 +1,4 @@
+import { MemoryService } from "@/services/memory-service";
 import React, { createContext, useState } from "react";
 
 type MemoryContextProps = {
@@ -11,6 +12,9 @@ type MemoryContextProps = {
   setCoverPhoto(coverPhoto: string): void;
   time?: string;
   setTime(time: string): void;
+  packageId?: string;
+  setPackageId(packageId: string): void;
+  create(): Promise<void>;
 };
 
 export const MemoryContext = createContext<MemoryContextProps>(
@@ -22,7 +26,18 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
+  const [packageId, setPackageId] = useState("");
   const [coverFoto, setCoverPhoto] = useState("");
+
+  const create = async () => {
+    const memoryService = new MemoryService();
+    await memoryService.create({
+      address: location,
+      date: new Date(),
+      name,
+      packageId,
+    });
+  };
 
   return (
     <MemoryContext.Provider
@@ -32,11 +47,14 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         location,
         coverFoto,
         time,
+        packageId,
         setName,
         setLocation,
         setDate,
         setCoverPhoto,
         setTime,
+        setPackageId,
+        create,
       }}
     >
       {children}

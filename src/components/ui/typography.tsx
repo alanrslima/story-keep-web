@@ -1,7 +1,8 @@
-import { PropsWithChildren } from "react";
+import { ElementType, PropsWithChildren } from "react";
 import cn from "classnames";
 
-export type TypographyProps = PropsWithChildren & {
+type TypographyBaseProps = PropsWithChildren & {
+  as?: ElementType;
   textColor?:
     | "text-white"
     | "text-black"
@@ -12,6 +13,7 @@ export type TypographyProps = PropsWithChildren & {
   shadow?: boolean;
   center?: boolean;
   type?:
+    | "caption"
     | "button-small"
     | "button-default"
     | "button-large"
@@ -29,22 +31,38 @@ export type TypographyProps = PropsWithChildren & {
     | "display-large";
 };
 
+// Conditional props for 'label'
+type LabelProps = {
+  as: "label";
+  htmlFor: string;
+} & TypographyBaseProps;
+
+type DefaultProps = {
+  as?: Exclude<ElementType, "label">;
+  htmlFor?: never;
+} & TypographyBaseProps;
+
+export type TypographyProps = LabelProps | DefaultProps;
+
 export function Typography({
   type = "body-default",
   through,
   children,
   center,
   textColor,
+  as: Tag = "span",
   shadow,
+  ...props
 }: TypographyProps) {
   return (
-    <span
+    <Tag
       role=""
       aria-level={1}
       className={cn("text-content_primary font-poppins", textColor, {
         "drop-shadow-md": shadow,
         "line-through": through,
         "text-center": center,
+        "text-xs": type === "caption",
         "text-sm font-semibold":
           type === "button-small" || type === "body-default-bold",
         "text-base font-semibold":
@@ -61,8 +79,9 @@ export function Typography({
         "text-4xl md:text-6xl font-semibold": type === "display-medium",
         "text-5xl md:text-7xl font-semibold": type === "display-large",
       })}
+      {...props}
     >
       {children}
-    </span>
+    </Tag>
   );
 }
