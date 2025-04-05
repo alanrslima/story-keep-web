@@ -21,10 +21,24 @@ export default function SignUpPage() {
         </div>
         <Divider />
         <SignUpForm />
-        <Typography type="body-default" center>
-          Não possui uma conta?{" "}
-          <Link href={{ pathname: "sign-up" }}>Cadastre-se</Link>
-        </Typography>
+        <div className="flex flex-col gap-4">
+          <Typography textColor="text-content-secondary" center type="caption">
+            Criado uma conta você concorda com os nossos{" "}
+            <Link className="underline" href={{ pathname: "/" }}>
+              Termos de Uso
+            </Link>{" "}
+            e{" "}
+            <Link className="underline" href={{ pathname: "/" }}>
+              Privacidade
+            </Link>
+          </Typography>
+          <Typography type="body-default" center>
+            Já possui uma conta?{" "}
+            <Link className="underline" href={{ pathname: "sign-in" }}>
+              Entre agora
+            </Link>
+          </Typography>
+        </div>
       </div>
     </div>
   );

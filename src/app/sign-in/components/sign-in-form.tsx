@@ -18,7 +18,9 @@ export function SignInForm() {
     <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-4">
       <TextInput label="E-mail" name="email" type="email" />
       <TextInput label="Senha" name="password" type="password" />
-      <Button type="submit" title="Entrar" />
+      <div className="flex flex-col mt-5">
+        <Button type="submit" title="Entrar" />
+      </div>
     </form>
   );
 }

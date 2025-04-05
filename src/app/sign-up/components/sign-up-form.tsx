@@ -1,14 +1,17 @@
 "use client";
-import { Button, TextInput } from "@/components/ui";
+import { Alert, Button, TextInput } from "@/components/ui";
 import { AuthService } from "@/services/auth-service";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 
 export function SignUpForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string>();
 
   const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (formRef.current) {
+      setIsLoading(true);
       const formData = new FormData(formRef.current);
       const body = {
         name: String(formData.get("name")),
@@ -16,7 +19,10 @@ export function SignUpForm() {
         password: String(formData.get("password")),
       };
       const authService = new AuthService();
-      await authService.signUp(body);
+      authService
+        .signUp(body)
+        .catch(() => setError("Falha ao realizar cadastro"))
+        .finally(() => setIsLoading(false));
     }
   };
 
@@ -30,7 +36,10 @@ export function SignUpForm() {
         placeholder="6+ caracteres"
         type="password"
       />
-      <Button type="submit" title="Entrar" />
+      {error && <Alert />}
+      <div className="flex flex-col mt-5">
+        <Button isLoading={isLoading} type="submit" title="Cadastrar" />
+      </div>
     </form>
   );
 }

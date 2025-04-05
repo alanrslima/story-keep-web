@@ -10,6 +10,10 @@ export type TimeFormProps = {
 export function TimeForm(props: TimeFormProps) {
   const { setTime, time } = useMemory();
 
+  function onChangeText(_: string, maskedValue: string) {
+    setTime(maskedValue);
+  }
+
   const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     await props.onSubmit();
@@ -20,8 +24,9 @@ export function TimeForm(props: TimeFormProps) {
       <Typography type="title-section">Que horas?</Typography>
       <TextArea
         value={time}
+        maskType="time"
         placeholder="20:00"
-        onChange={(evt) => setTime(evt.target.value)}
+        onChangeText={onChangeText}
       />
       <div className="flex gap-4">
         <Link href="location">

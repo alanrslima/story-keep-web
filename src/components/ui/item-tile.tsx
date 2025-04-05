@@ -1,6 +1,12 @@
 import { Typography } from "./typography";
 
-export function ItemTile() {
+export type ItemTileProps = {
+  title: string;
+  description: string;
+  label: string;
+};
+
+export function ItemTile(props: ItemTileProps) {
   return (
     <div>
       <div
@@ -8,13 +14,11 @@ export function ItemTile() {
         className="min-h-[280px] bg-cover rounded-md"
       ></div>
       <div className="flex flex-col gap-1 py-2">
-        <Typography type="body-large-bold">
-          Casamento de João e Maria
-        </Typography>
+        <Typography type="body-large-bold">{props.title}</Typography>
         <Typography textColor="text-content-secondary">
-          20 - 22 de abr.
+          {props.description}
         </Typography>
-        <Typography type="body-default-bold">356 memórias</Typography>
+        <Typography type="body-default-bold">{props.label}</Typography>
       </div>
     </div>
   );

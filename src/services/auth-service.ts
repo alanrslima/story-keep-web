@@ -13,12 +13,12 @@ export class AuthService {
   }
 
   async signUp(input: AuthServiceSignUpInput): Promise<void> {
-    await this.api.post("/api/auth/signup", input);
+    await this.api.post("/api/auth/sign-up", input);
   }
 
   async signIn(
     input: AuthServiceSignInInput
   ): Promise<AuthServiceSignInOutput> {
-    return await this.api.post("/api/auth/signin", input);
+    return await this.api.post("/api/auth/sign-in", input);
   }
 }

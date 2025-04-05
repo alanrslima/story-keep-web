@@ -10,6 +10,10 @@ export type DateFormProps = {
 export function DateForm(props: DateFormProps) {
   const { setDate, date } = useMemory();
 
+  function onChangeText(_: string, maskedValue: string) {
+    setDate(maskedValue);
+  }
+
   const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     await props.onSubmit();
@@ -21,7 +25,8 @@ export function DateForm(props: DateFormProps) {
       <TextArea
         value={date}
         placeholder="dd/mm/yyyy"
-        onChange={(evt) => setDate(evt.target.value)}
+        maskType="date"
+        onChangeText={onChangeText}
       />
       <div className="flex gap-4">
         <Link href="time">

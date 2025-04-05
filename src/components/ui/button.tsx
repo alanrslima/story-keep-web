@@ -21,6 +21,7 @@ export type ButtonProps = React.DetailedHTMLProps<
   variant?: ButtonVariants;
   full?: boolean;
   size?: ButtonSize;
+  isLoading?: boolean;
 };
 
 export function Button({
@@ -28,6 +29,7 @@ export function Button({
   leadingIcon,
   trailingIcon,
   full,
+  isLoading,
   variant = "primary",
   size = "base",
   ...rest
@@ -35,8 +37,9 @@ export function Button({
   return (
     <button
       {...rest}
+      disabled={isLoading}
       className={classNames(
-        "py-2 px-6 justify-center items-center flex gap-2 rounded-full",
+        "py-2 px-6 justify-center items-center flex gap-3 rounded-full disabled:cursor-not-allowed",
         {
           "w-full": full,
           "bg-primary-light text-content-primary": variant === "primary",
@@ -53,27 +56,10 @@ export function Button({
         }
       )}
     >
+      {isLoading && (
+        <span className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+      )}
       {leadingIcon && <Icon size={18} name={leadingIcon} />}
-      {/* <svg
-        className="w-5 h-5 mr-2 animate-spin text-black "
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          className="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth="4"
-        ></circle>
-        <path
-          className="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8v2a6 6 0 00-6 6H4z"
-        ></path>
-      </svg> */}
       <Typography type="button-small">{title}</Typography>
       {trailingIcon && <Icon name={trailingIcon} />}
     </button>

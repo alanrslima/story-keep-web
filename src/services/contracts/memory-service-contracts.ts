@@ -4,3 +4,12 @@ export type MemoryServiceCreateInput = {
   address: string;
   packageId: string;
 };
+
+export type MemoryServiceListOutput = {
+  id: string;
+  name: string;
+  date: string;
+  photosCount: number;
+  videosCount: number;
+  formatedDate: string;
+};

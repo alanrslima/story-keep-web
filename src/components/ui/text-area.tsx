@@ -1,13 +1,64 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
+import { Typography } from "./typography";
+import classNames from "classnames";
+
+type TextProps =
+  | {
+      maskType?: undefined;
+      onChangeText?: (rawValue: string, maskedValue?: string) => void;
+    }
+  | {
+      maskType: MaskType;
+      onChangeText?: (rawValue: string, maskedValue: string) => void;
+    };
 
 export type TextAreaProps = React.DetailedHTMLProps<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
->;
+> &
+  TextProps & { error?: string };
 
-export function TextArea(props: TextAreaProps) {
+type MaskType = "date" | "time";
+
+function formatDate(value: string): string {
+  const cleaned = value.replace(/\D/g, "");
+  if (cleaned.length <= 2) {
+    return cleaned;
+  } else if (cleaned.length <= 4) {
+    return `${cleaned.slice(0, 2)}/${cleaned.slice(2)}`;
+  } else {
+    return `${cleaned.slice(0, 2)}/${cleaned.slice(2, 4)}/${cleaned.slice(
+      4,
+      8
+    )}`;
+  }
+}
+
+function formatTime(value: string): string {
+  // Remove all non-digits
+  const cleaned = value.replace(/\D/g, "");
+
+  // Apply mask
+  if (cleaned.length <= 2) {
+    return cleaned;
+  } else {
+    return `${cleaned.slice(0, 2)}:${cleaned.slice(2, 4)}`;
+  }
+}
+
+const formatMapper: { [key in MaskType]: (value: string) => string } = {
+  date: formatDate,
+  time: formatTime,
+};
+
+export function TextArea({
+  onChangeText,
+  error,
+  maskType,
+  ...props
+}: TextAreaProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -17,13 +68,39 @@ export function TextArea(props: TextAreaProps) {
     }
   }, [props.value]);
 
+  function onChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    const value = e.target.value;
+    if (props.onChange) {
+      props.onChange(e);
+    }
+    if (onChangeText) {
+      if (maskType) {
+        const maskedValue = formatMapper[maskType](value);
+        onChangeText(value, maskedValue);
+      } else {
+        onChangeText(value, undefined);
+      }
+    }
+  }
+
   return (
-    <textarea
-      ref={textareaRef}
-      placeholder="Digite aqui"
-      rows={1}
-      {...props}
-      className="bg-transparent text-3xl md:text-4xl font-montserrat outline-none font-bold overflow-hidden resize-none"
-    />
+    <>
+      <textarea
+        ref={textareaRef}
+        placeholder="Digite aqui"
+        rows={1}
+        onChange={onChange}
+        {...props}
+        className={classNames(
+          "bg-transparent text-3xl md:text-4xl font-montserrat outline-none font-bold overflow-hidden resize-none",
+          { "text-red-600": !!error }
+        )}
+      />
+      {error && (
+        <Typography type="body-default-bold" textColor="text-red-600">
+          {error}
+        </Typography>
+      )}
+    </>
   );
 }

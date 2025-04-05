@@ -16,7 +16,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 md:flex-row gap-4">
             {memories.map((memory) => (
               <Link key={memory} href={{ pathname: "/memory" }}>
-                <ItemTile />
+                <ItemTile description="" label="" title="" />
               </Link>
             ))}
           </div>

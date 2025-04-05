@@ -12,7 +12,7 @@ type MemoryContextProps = {
   setCoverPhoto(coverPhoto: string): void;
   time?: string;
   setTime(time: string): void;
-  packageId?: string;
+  packageId: string;
   setPackageId(packageId: string): void;
   create(): Promise<void>;
 };

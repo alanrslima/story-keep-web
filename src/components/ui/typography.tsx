@@ -8,7 +8,8 @@ type TypographyBaseProps = PropsWithChildren & {
     | "text-black"
     | "text-content-primary"
     | "text-content-secondary"
-    | "text-content-tertiary";
+    | "text-content-tertiary"
+    | "text-red-600";
   through?: boolean;
   shadow?: boolean;
   center?: boolean;
