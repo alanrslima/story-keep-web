@@ -15,3 +15,4 @@ export * from "./text-input";
 export * from "./divider";
 export * from "./alert";
 export * from "./form";
+export * from "./empty-state";

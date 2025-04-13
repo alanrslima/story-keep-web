@@ -1,10 +1,13 @@
+"use client";
+
 import { MenuBar } from "@/components/menu-bar";
 import { Headline, ItemTile } from "@/components/ui";
 import { SimpleCard } from "@/components/ui/simple-card";
 import Link from "next/link";
 import { GalleryResume } from "./components/gallery-resume";
+import { withAuth } from "@/components";
 
-export default function Home() {
+function Home() {
   const memories = [1, 2, 3];
 
   return (
@@ -34,3 +37,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default withAuth(Home);

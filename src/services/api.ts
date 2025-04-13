@@ -3,10 +3,10 @@ import axios, { AxiosInstance } from "axios";
 export class Api {
   private axiosInstance: AxiosInstance;
 
-  private token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NDM4MTc3MTQsImV4cCI6MTc0MzkwNDExNCwic3ViIjoie1widXNlcklkXCI6XCI4YzU3NzVhYS03ZmQzLTQ0NmYtOGI3YS02YjAxZmQ5M2U2NWVcIn0ifQ.psv0ygeHUr-q0otaKEMyJzYJTv1VK_iZEuKWaM7aHrA";
+  private token: string | null;
 
   constructor() {
+    this.token = localStorage.getItem("token");
     this.axiosInstance = axios.create({
       baseURL: "http://localhost:3000",
       headers: {

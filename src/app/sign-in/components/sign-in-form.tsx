@@ -1,26 +1,32 @@
 "use client";
-import { Button, TextInput } from "@/components/ui";
-import { FormEvent, useRef } from "react";
+import { Alert, Button, Form, TextInput } from "@/components/ui";
+import { useAuth } from "@/hooks/use-auth";
+import { useCallback } from "react";
 
 export function SignInForm() {
-  const formRef = useRef<HTMLFormElement>(null);
+  const { signInWithEmailAndPassword } = useAuth();
 
-  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    if (formRef.current) {
-      const formData = new FormData(formRef.current);
-      console.log("Email:", formData.get("email"));
-      console.log("Password:", formData.get("password"));
-    }
-  };
+  const onSubmit = useCallback(
+    async (data: { email: string; password: string }) => {
+      await signInWithEmailAndPassword(data);
+    },
+    [signInWithEmailAndPassword]
+  );
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-4">
-      <TextInput label="E-mail" name="email" type="email" />
-      <TextInput label="Senha" name="password" type="password" />
-      <div className="flex flex-col mt-5">
-        <Button type="submit" title="Entrar" />
-      </div>
-    </form>
+    <Form onSubmit={onSubmit}>
+      {({ isLoading, error }) => (
+        <div className="flex flex-col gap-4">
+          <TextInput required label="E-mail" name="email" type="email" />
+          <TextInput required label="Senha" name="password" type="password" />
+          {error && (
+            <Alert title={error.title} description={error.description} />
+          )}
+          <div className="flex flex-col mt-5">
+            <Button type="submit" isLoading={isLoading} title="Entrar" />
+          </div>
+        </div>
+      )}
+    </Form>
   );
 }

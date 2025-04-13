@@ -19,6 +19,6 @@ export class AuthService {
   async signIn(
     input: AuthServiceSignInInput
   ): Promise<AuthServiceSignInOutput> {
-    return await this.api.post("/api/auth/sign-in", input);
+    return await this.api.post("/api/auth/sign-in/email-password", input);
   }
 }

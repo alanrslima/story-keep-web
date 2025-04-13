@@ -25,7 +25,6 @@ export function Modal(props: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    console.log("OLAAAA");
     if (props.isOpen !== undefined) {
       setIsOpen(props.isOpen);
     }
@@ -43,14 +42,10 @@ export function Modal(props: ModalProps) {
   }, [isOpen]);
 
   const show = () => {
-    console.log("SHOWWWW");
     setIsOpen(true);
   };
 
-  console.log("isOpen", isOpen);
-
   const hide = () => {
-    console.log("HIDEEEE");
     setIsOpen(false);
   };
 

@@ -1,7 +1,7 @@
 "use client";
 import { Footer } from "@/components/footer";
 import { MenuBar } from "@/components/menu-bar";
-import { Button, ItemTile, Typography } from "@/components/ui";
+import { Button, EmptyState, ItemTile, Typography } from "@/components/ui";
 import { useMemories } from "@/hooks/use-memories";
 import Link from "next/link";
 
@@ -22,8 +22,9 @@ export default function Memories() {
             </Link>
           </div>
         </div>
+        <EmptyState />
         <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:flex-row gap-4">
-          {memories.map((memory) => (
+          {/* {memories.map((memory) => (
             <Link key={memory.id} href={{ pathname: "/memory" }}>
               <ItemTile
                 title={memory.name}
@@ -31,7 +32,7 @@ export default function Memories() {
                 label={`${memory.photosCount} memórias`}
               />
             </Link>
-          ))}
+          ))} */}
         </main>
       </div>
       <Footer />

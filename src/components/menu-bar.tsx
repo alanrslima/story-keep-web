@@ -1,10 +1,11 @@
 "use client";
 
-import { MenuItem } from "./ui";
+import { useAuth } from "@/hooks/use-auth";
+import { IconButton, MenuItem } from "./ui";
 import { usePathname } from "next/navigation";
 
 const menuItems = [
-  { text: "Home", pathname: "home" },
+  { text: "Home", pathname: "/home" },
   { text: "Memórias", pathname: "memories" },
   // { text: "Encontrar fotógrafos", pathname: "photographers" },
   { text: "Configurações", pathname: "settings" },
@@ -12,9 +13,10 @@ const menuItems = [
 
 export function MenuBar() {
   const pathname = usePathname();
+  const { logOut } = useAuth();
 
   return (
-    <header className="h-[70px] flex border-b-[1px] border-b-border-neutral">
+    <header className="h-[70px] flex border-b-[1px] items-center px-8 border-b-border-neutral">
       <nav className="flex items-center justify-center gap-6 flex-1">
         {menuItems.map((item) => (
           <MenuItem
@@ -25,6 +27,7 @@ export function MenuBar() {
           />
         ))}
       </nav>
+      <IconButton onClick={logOut} iconName="LogOut" />
     </header>
   );
 }

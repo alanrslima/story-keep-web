@@ -1,45 +1,33 @@
 "use client";
-import { Alert, Button, TextInput } from "@/components/ui";
-import { AuthService } from "@/services/auth-service";
-import { FormEvent, useRef, useState } from "react";
+import { Alert, Button, Form, TextInput } from "@/components/ui";
+import { useAuth } from "@/hooks/use-auth";
+import { useCallback } from "react";
 
 export function SignUpForm() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string>();
+  const { signUp } = useAuth();
 
-  const onSubmit = async (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    if (formRef.current) {
-      setIsLoading(true);
-      const formData = new FormData(formRef.current);
-      const body = {
-        name: String(formData.get("name")),
-        email: String(formData.get("email")),
-        password: String(formData.get("password")),
-      };
-      const authService = new AuthService();
-      authService
-        .signUp(body)
-        .catch(() => setError("Falha ao realizar cadastro"))
-        .finally(() => setIsLoading(false));
-    }
-  };
+  const onSubmit = useCallback(signUp, [signUp]);
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-4">
-      <TextInput label="Nome" name="name" type="text" />
-      <TextInput label="E-mail" name="email" type="email" />
-      <TextInput
-        label="Senha"
-        name="password"
-        placeholder="6+ caracteres"
-        type="password"
-      />
-      {error && <Alert />}
-      <div className="flex flex-col mt-5">
-        <Button isLoading={isLoading} type="submit" title="Cadastrar" />
-      </div>
-    </form>
+    <Form onSubmit={onSubmit}>
+      {({ isLoading, error }) => (
+        <div className="flex flex-col gap-4">
+          <TextInput label="Nome" name="name" type="text" />
+          <TextInput label="E-mail" name="email" type="email" />
+          <TextInput
+            label="Senha"
+            name="password"
+            placeholder="6+ caracteres"
+            type="password"
+          />
+          {error && (
+            <Alert title={error.title} description={error.description} />
+          )}
+          <div className="flex flex-col mt-5">
+            <Button isLoading={isLoading} type="submit" title="Cadastrar" />
+          </div>
+        </div>
+      )}
+    </Form>
   );
 }
