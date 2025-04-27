@@ -12,7 +12,7 @@ export default function CreateAMemoryLocation() {
   };
 
   return (
-    <StepLayout percentage={80} previousPath="time">
+    <StepLayout previousPercentage={40} percentage={60} previousPath="date">
       <LocationForm onSubmit={onSubmit} />
     </StepLayout>
   );

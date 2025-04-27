@@ -7,6 +7,7 @@ import {
 } from "./contracts/memory-service-contracts";
 import { PlanList } from "@/types/plan";
 import { MemoryDetail } from "@/types/memory";
+import { FormUtils } from "@/utils/form-utils";
 
 export class MemoryService {
   private api: Api;
@@ -16,14 +17,7 @@ export class MemoryService {
   }
 
   async create(input: MemoryServiceCreateInput): Promise<{ id: string }> {
-    const formData = new FormData();
-    if (input.file) {
-      formData.append("file", input.file);
-    }
-    formData.append("date", input.date.toISOString());
-    formData.append("name", input.name);
-    formData.append("address", input.address);
-    formData.append("packageId", input.packageId);
+    const formData = FormUtils.objectToFormData(input);
     const { data } = await this.api.post<{ id: string }>(
       "/api/memory",
       formData
@@ -37,7 +31,7 @@ export class MemoryService {
     >("/api/memory");
     return data.map((item) => ({
       ...item,
-      formatedDate: DateUtils.formatDate(item.date, "PPP"),
+      formatedDate: DateUtils.formatDate(item.startDate, "PPP"),
     }));
   }
 
@@ -45,7 +39,10 @@ export class MemoryService {
     const { data } = await this.api.get<MemoryDetail>("/api/memory/detail", {
       params: input,
     });
-    return data;
+    return {
+      ...data,
+      startDate: data.startDate ? new Date(data.startDate) : undefined,
+    };
   }
 
   async listPlans(): Promise<PlanList[]> {

@@ -52,3 +52,89 @@ export function Form(props: FormProps) {
     </form>
   );
 }
+
+// import { ReactNode, useEffect } from "react";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// // import { Container, Fieldset } from './form.styles'
+// import {
+//   FormProvider,
+//   useForm,
+//   useFormContext,
+//   UseFormReturn,
+// } from "react-hook-form";
+// import {} from "react-hook-form";
+// import * as yup from "yup";
+
+// export type OnSubmitMethods = UseFormReturn;
+
+// export type FormProps = {
+//   children: (methods: UseFormReturn) => ReactNode;
+//   onSubmit: (
+//     data: { [key: string]: string },
+//     methods: OnSubmitMethods
+//   ) => Promise<void>;
+//   schema?: yup.ObjectSchema<any>;
+//   defaultValues?: any;
+//   disabled?: boolean;
+//   isLoading?: boolean;
+//   devTools?: boolean;
+// };
+
+// const RenderForm = ({
+//   children,
+//   onSubmit,
+//   isLoading,
+//   disabled,
+//   ...props
+// }: Omit<FormProps, "schema">) => {
+//   const methods = useFormContext();
+
+//   return (
+//     <form
+//       onSubmit={methods.handleSubmit((data) => onSubmit(data, methods))}
+//       {...props}
+//     >
+//       <fieldset
+//         disabled={disabled || methods?.formState?.isSubmitting || isLoading}
+//       >
+//         {children({ ...methods })}
+//       </fieldset>
+//     </form>
+//   );
+// };
+
+// export function Form({
+//   children,
+//   onSubmit,
+//   schema,
+//   defaultValues,
+//   disabled,
+//   isLoading,
+//   // devTools,
+//   ...props
+// }: FormProps) {
+//   const methods = useForm({
+//     resolver: schema ? yupResolver(schema) : undefined,
+//     defaultValues,
+//   });
+
+//   useEffect(() => {
+//     methods.reset({ ...defaultValues });
+//   }, [defaultValues, methods]);
+
+//   return (
+//     <>
+//       <FormProvider {...methods}>
+//         <RenderForm
+//           onSubmit={onSubmit}
+//           disabled={disabled}
+//           isLoading={isLoading}
+//           {...props}
+//         >
+//           {children}
+//         </RenderForm>
+//       </FormProvider>
+//       {/* {devTools && <DevTool control={methods.control} />} */}
+//     </>
+//   );
+// }

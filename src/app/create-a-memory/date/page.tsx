@@ -8,7 +8,7 @@ export default function CreateAMemoryDate() {
   const navigate = useRouter();
 
   const onSubmit = async () => {
-    navigate.push("time");
+    navigate.push("location");
   };
 
   return (

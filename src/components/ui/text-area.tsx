@@ -18,7 +18,9 @@ export type TextAreaProps = React.DetailedHTMLProps<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
 > &
-  TextProps & { error?: string };
+  TextProps & {
+    error?: string;
+  };
 
 type MaskType = "date" | "time";
 

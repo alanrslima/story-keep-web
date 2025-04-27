@@ -16,28 +16,29 @@ function Memories() {
           title="Seus baús de memórias"
           rightComponent={
             <Link href={{ pathname: "/create-a-memory/name" }}>
-              <Button title="Criar baú" leadingIcon="Plus" />
+              <Button title="Criar álbum" leadingIcon="Plus" />
             </Link>
           }
         />
       )}
       {isEmpty && (
         <EmptyState
-          message="Começe a receber memórias compartilhadas de quem você mais ama"
-          title="Crie um baú de memórias"
+          title="Crie um álbum de memórias"
+          message="E começe a receber memórias compartilhadas de quem você mais ama"
           footerComponent={
             <Link href={{ pathname: "/create-a-memory/name" }}>
-              <Button title="Crie um baú" leadingIcon="Plus" />
+              <Button title="Criar álbum" leadingIcon="Plus" />
             </Link>
           }
         />
       )}
-      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:flex-row gap-4">
+      <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:flex-row gap-4">
         {memories.map((memory) => (
           <Link key={memory.id} href={{ pathname: "/memory" }}>
             <ItemTile
               title={memory.name}
-              description={memory.formatedDate}
+              description={memory.address}
+              subDescription={memory.formatedDate}
               label={`${memory.photosCount} memórias`}
               imageUrl={memory.coverImage?.url}
             />

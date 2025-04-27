@@ -1,8 +1,10 @@
 import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 export class DateUtils {
   static formatDate(date: string | number | Date, formatStr: string) {
-    return format(date, formatStr);
+    if (!date) return undefined;
+    return format(date, formatStr, { locale: ptBR });
   }
 
   static isValidDate(

@@ -4,14 +4,12 @@ import React, { createContext, useState } from "react";
 type MemoryContextProps = {
   name: string;
   setName(name: string): void;
-  date: string;
-  setDate(date: string): void;
+  startDate?: Date;
+  setStartDate(date: Date): void;
   location: string;
   setLocation(location: string): void;
   coverFoto?: string;
   setCoverPhoto(coverPhoto: string): void;
-  time?: string;
-  setTime(time: string): void;
   packageId: string;
   setPackageId(packageId: string): void;
   create(): Promise<{ id: string }>;
@@ -33,17 +31,11 @@ function base64ToBlob(base64: string, contentType = "") {
 
 export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [startDate, setStartDate] = useState<Date>();
+  // const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
   const [packageId, setPackageId] = useState("");
   const [coverFoto, setCoverPhoto] = useState("");
-
-  const generateDate = (): Date => {
-    const [day, month, year] = date.split("/").map(Number);
-    const [hours, minutes] = time.split(":").map(Number);
-    return new Date(year, month - 1, day, hours, minutes);
-  };
 
   const generateFile = (): File | undefined => {
     if (!coverFoto) return undefined;
@@ -56,7 +48,7 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
     const memoryService = new MemoryService();
     return await memoryService.create({
       address: location,
-      date: generateDate(),
+      startDate,
       name,
       packageId,
       file: generateFile(),
@@ -67,16 +59,14 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
     <MemoryContext.Provider
       value={{
         name,
-        date,
+        startDate,
         location,
         coverFoto,
-        time,
         packageId,
         setName,
         setLocation,
-        setDate,
+        setStartDate,
         setCoverPhoto,
-        setTime,
         setPackageId,
         create,
       }}

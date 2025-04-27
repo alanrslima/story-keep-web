@@ -5,8 +5,9 @@ import { MemoryCard } from "../components/memory-card";
 import Link from "next/link";
 import { useQueryParams } from "@/hooks/use-query-params";
 import { useMemoryDetail } from "@/hooks/use-memory-detail";
+import { withAuth } from "@/components";
 
-export default function CreateAMemorySuccess() {
+function CreateAMemorySuccess() {
   const { getQueryParams } = useQueryParams();
   const screenParams = getQueryParams();
   const { memory } = useMemoryDetail({ id: screenParams.id });
@@ -19,15 +20,17 @@ export default function CreateAMemorySuccess() {
         <div className="hidden md:flex justify-center flex-1">
           {memory && (
             <MemoryCard
-              date={memory.date}
-              location="Localização"
+              date={memory.startDate}
+              location={memory.address}
+              disableChangeImage
               name={memory.name}
+              coverPhoto={memory.coverImage?.url}
             />
           )}
         </div>
         <div className="flex flex-col gap-6 items-center">
           <Typography center type="display-medium">
-            Seu baú de memórias foi criado com sucesso!
+            Seu álbum de memórias foi criado com sucesso!
           </Typography>
           <div className="max-w-[700px] flex">
             <Typography center type="title-body">
@@ -46,3 +49,5 @@ export default function CreateAMemorySuccess() {
     </div>
   );
 }
+
+export default withAuth(CreateAMemorySuccess);

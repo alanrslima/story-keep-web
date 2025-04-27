@@ -45,13 +45,13 @@ export function MemoryLayout() {
         </div>
         <main className="flex flex-col md:flex-row gap-6 min-h-[400px] ">
           <section className="flex gap-8 flex-col w-full md:max-w-[340px] items-center">
-            <MemoryCard name="Casamento de João e Maria" date="30.09.2025" />
+            <MemoryCard name="Casamento de João e Maria" date={new Date()} />
             <ActionCard href={{ query: { ...screemParams, qr: "open" } }} />
             <SimpleCard />
           </section>
           <div className="flex flex-col flex-1 gap-8">
             <GalleryCover />
-            <div className="flex flex-col" >
+            <div className="flex flex-col">
               <Headline title="Sobre o evento" />
               <Typography>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla,

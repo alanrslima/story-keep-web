@@ -3,8 +3,9 @@
 import { StepLayout } from "../components/step-layout";
 import { NameForm } from "../components/name-form";
 import { useRouter } from "next/navigation";
+import { withAuth } from "@/components";
 
-export default function CreateAMemoryName() {
+function CreateAMemoryName() {
   const navigate = useRouter();
 
   const onSubmit = async () => {
@@ -17,3 +18,5 @@ export default function CreateAMemoryName() {
     </StepLayout>
   );
 }
+
+export default withAuth(CreateAMemoryName);

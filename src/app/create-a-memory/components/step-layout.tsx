@@ -14,7 +14,7 @@ export type StepLayoutProps = PropsWithChildren & {
 };
 
 export function StepLayout(props: StepLayoutProps) {
-  const { name, date, location, time } = useMemory();
+  const { name, startDate, location } = useMemory();
 
   return (
     <div className="h-dvh w-dvw flex flex-col">
@@ -36,12 +36,7 @@ export function StepLayout(props: StepLayoutProps) {
             {props.children}
           </section>
           <section className="items-center hidden md:flex flex-[0.5] justify-center">
-            <MemoryCard
-              time={time}
-              name={name}
-              date={date}
-              location={location}
-            />
+            <MemoryCard name={name} date={startDate} location={location} />
           </section>
         </div>
       </main>
