@@ -12,10 +12,11 @@ export function SignUpForm() {
     <Form onSubmit={onSubmit}>
       {({ isLoading, error }) => (
         <div className="flex flex-col gap-4">
-          <TextInput label="Nome" name="name" type="text" />
-          <TextInput label="E-mail" name="email" type="email" />
+          <TextInput required label="Nome" name="name" type="text" />
+          <TextInput required label="E-mail" name="email" type="email" />
           <TextInput
             label="Senha"
+            required
             name="password"
             placeholder="6+ caracteres"
             type="password"

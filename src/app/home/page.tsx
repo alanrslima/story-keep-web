@@ -1,7 +1,7 @@
 "use client";
 
 import { MenuBar } from "@/components/menu-bar";
-import { Headline, ItemTile } from "@/components/ui";
+import { Headline } from "@/components/ui";
 import { SimpleCard } from "@/components/ui/simple-card";
 import Link from "next/link";
 import { GalleryResume } from "./components/gallery-resume";
@@ -19,7 +19,7 @@ function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 md:flex-row gap-4">
             {memories.map((memory) => (
               <Link key={memory} href={{ pathname: "/memory" }}>
-                <ItemTile />
+                {/* <ItemTile /> */}
               </Link>
             ))}
           </div>

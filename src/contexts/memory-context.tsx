@@ -14,12 +14,22 @@ type MemoryContextProps = {
   setTime(time: string): void;
   packageId: string;
   setPackageId(packageId: string): void;
-  create(): Promise<void>;
+  create(): Promise<{ id: string }>;
 };
 
 export const MemoryContext = createContext<MemoryContextProps>(
   {} as MemoryContextProps
 );
+
+function base64ToBlob(base64: string, contentType = "") {
+  const byteCharacters = atob(base64.split(",")[1]);
+  const byteArrays = [];
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteArrays.push(byteCharacters.charCodeAt(i));
+  }
+  const byteArray = new Uint8Array(byteArrays);
+  return new Blob([byteArray], { type: contentType });
+}
 
 export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [name, setName] = useState("");
@@ -29,13 +39,27 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [packageId, setPackageId] = useState("");
   const [coverFoto, setCoverPhoto] = useState("");
 
-  const create = async () => {
+  const generateDate = (): Date => {
+    const [day, month, year] = date.split("/").map(Number);
+    const [hours, minutes] = time.split(":").map(Number);
+    return new Date(year, month - 1, day, hours, minutes);
+  };
+
+  const generateFile = (): File | undefined => {
+    if (!coverFoto) return undefined;
+    const contentType = coverFoto.split(";")[0].split(":")[1];
+    const blob = base64ToBlob(coverFoto, contentType);
+    return new File([blob], "image.png", { type: contentType });
+  };
+
+  const create = async (): Promise<{ id: string }> => {
     const memoryService = new MemoryService();
-    await memoryService.create({
+    return await memoryService.create({
       address: location,
-      date: new Date(),
+      date: generateDate(),
       name,
       packageId,
+      file: generateFile(),
     });
   };
 

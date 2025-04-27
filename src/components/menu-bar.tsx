@@ -16,7 +16,7 @@ export function MenuBar() {
   const { logOut } = useAuth();
 
   return (
-    <header className="h-[70px] flex border-b-[1px] items-center px-8 border-b-border-neutral">
+    <header className="min-h-[70px] flex border-b-[1px] items-center px-8 border-b-border-neutral">
       <nav className="flex items-center justify-center gap-6 flex-1">
         {menuItems.map((item) => (
           <MenuItem

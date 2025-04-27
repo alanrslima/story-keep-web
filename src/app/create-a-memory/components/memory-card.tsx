@@ -3,6 +3,7 @@
 import { Button, Typography, Icon } from "@/components/ui";
 import { useMemory } from "@/hooks/use-memory";
 import { ChangeEvent, useRef } from "react";
+import imageCompression from "browser-image-compression";
 
 export type MemoryCardProps = {
   name?: string;
@@ -19,12 +20,19 @@ export function MemoryCard({ name, date, location, time }: MemoryCardProps) {
     fileInputRef.current?.click();
   };
 
-  const onChangeImage = (evt: ChangeEvent<HTMLInputElement>) => {
+  const onChangeImage = async (evt: ChangeEvent<HTMLInputElement>) => {
     const file = evt.target.files?.[0];
     if (file) {
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+        initialQuality: 0.8,
+      };
+      const compressedFile = await imageCompression(file, options);
       const reader = new FileReader();
       reader.onload = (e) => setCoverPhoto(e.target?.result as string);
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(compressedFile);
     }
   };
 

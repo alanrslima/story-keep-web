@@ -3,6 +3,7 @@ export type MemoryServiceCreateInput = {
   date: Date;
   address: string;
   packageId: string;
+  file?: File;
 };
 
 export type MemoryServiceListOutput = {
@@ -12,4 +13,9 @@ export type MemoryServiceListOutput = {
   photosCount: number;
   videosCount: number;
   formatedDate: string;
+  coverImage?: { url: string };
+};
+
+export type MemoryServiceDetailInput = {
+  memoryId: string;
 };

@@ -1,6 +1,5 @@
 import { Button, TextArea, Typography } from "@/components/ui";
 import { useMemory } from "@/hooks/use-memory";
-import Link from "next/link";
 import { FormEvent } from "react";
 
 export type TimeFormProps = {
@@ -24,14 +23,13 @@ export function TimeForm(props: TimeFormProps) {
       <Typography type="title-section">Que horas?</Typography>
       <TextArea
         value={time}
+        autoFocus
         maskType="time"
         placeholder="20:00"
         onChangeText={onChangeText}
       />
       <div className="flex gap-4">
-        <Link href="location">
-          <Button title="Continuar" />
-        </Link>
+        <Button type="submit" title="Continuar" />
       </div>
     </form>
   );

@@ -1,6 +1,5 @@
 import { Button, TextArea, Typography } from "@/components/ui";
 import { useMemory } from "@/hooks/use-memory";
-import Link from "next/link";
 import { FormEvent } from "react";
 
 export type DateFormProps = {
@@ -24,14 +23,13 @@ export function DateForm(props: DateFormProps) {
       <Typography type="title-section">Que dia será?</Typography>
       <TextArea
         value={date}
+        autoFocus
         placeholder="dd/mm/yyyy"
         maskType="date"
         onChangeText={onChangeText}
       />
       <div className="flex gap-4">
-        <Link href="time">
-          <Button title="Continuar" />
-        </Link>
+        <Button title="Continuar" type="submit" />
       </div>
     </form>
   );

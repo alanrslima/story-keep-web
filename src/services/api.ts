@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export class Api {
   private axiosInstance: AxiosInstance;
@@ -15,13 +15,19 @@ export class Api {
     });
   }
 
-  async get<T>(url: string): Promise<{ status: number; data: T }> {
-    const { status, data } = await this.axiosInstance.get(url);
+  async get<T>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<{ status: number; data: T }> {
+    const { status, data } = await this.axiosInstance.get(url, config);
     return { data, status };
   }
 
-  async post<T>(url: string, body?: unknown): Promise<T> {
-    const { data } = await this.axiosInstance.post(url, body);
-    return data;
+  async post<T>(
+    url: string,
+    body?: unknown
+  ): Promise<{ status: number; data: T }> {
+    const { data, status } = await this.axiosInstance.post(url, body);
+    return { data, status };
   }
 }

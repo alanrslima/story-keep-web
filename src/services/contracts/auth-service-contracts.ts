@@ -12,3 +12,9 @@ export type AuthServiceSignInInput = {
 export type AuthServiceSignInOutput = {
   token: string;
 };
+
+export type AuthServiceGetMeOutput = {
+  id: string;
+  name: string;
+  permissions: string[];
+};

@@ -1,23 +1,23 @@
-import { MemoryServiceListOutput } from "@/services/contracts/memory-service-contracts";
 import { MemoryService } from "@/services/memory-service";
+import { MemoryDetail } from "@/types/memory";
 import { useEffect, useState } from "react";
 
-export function useMemories() {
-  const [memories, setMemories] = useState<MemoryServiceListOutput[]>([]);
+export function useMemoryDetail(props: { id: string }) {
+  const [memory, setMemory] = useState<MemoryDetail>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const listAll = async () => {
+  const detail = async (id: string) => {
     const memoryService = new MemoryService();
     memoryService
-      .list()
-      .then(setMemories)
+      .detail({ memoryId: id })
+      .then(setMemory)
       .catch(console.error)
       .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
-    listAll();
-  }, []);
+    detail(props.id);
+  }, [props.id]);
 
-  return { memories, isLoading };
+  return { memory, isLoading };
 }

@@ -70,6 +70,7 @@ export function TextArea({
 
   function onChange(e: ChangeEvent<HTMLTextAreaElement>) {
     const value = e.target.value;
+
     if (props.onChange) {
       props.onChange(e);
     }
@@ -83,14 +84,22 @@ export function TextArea({
     }
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      const textarea = e.target as HTMLTextAreaElement;
+      textarea.form?.requestSubmit();
+    }
+  };
+
   return (
     <>
       <textarea
-        ref={textareaRef}
-        placeholder="Digite aqui"
-        rows={1}
-        onChange={onChange}
         {...props}
+        ref={textareaRef}
+        rows={1}
+        onKeyDown={handleKeyDown}
+        onChange={onChange}
         className={classNames(
           "bg-transparent text-3xl md:text-4xl font-montserrat outline-none font-bold overflow-hidden resize-none",
           { "text-red-600": !!error }
