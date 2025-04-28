@@ -3,5 +3,5 @@ export type PlanList = {
   name: string;
   description: string;
   currencyCode: string;
-  price: number;
+  priceCents: number;
 };

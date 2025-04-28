@@ -6,6 +6,11 @@ export type MemoryServiceCreateInput = {
   file?: File;
 };
 
+export type MemoryServiceCreateOutput = {
+  id: string;
+  token?: string;
+};
+
 export type MemoryServiceListOutput = {
   id: string;
   name: string;

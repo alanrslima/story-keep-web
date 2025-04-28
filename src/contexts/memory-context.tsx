@@ -1,3 +1,4 @@
+import { MemoryServiceCreateOutput } from "@/services/contracts/memory-service-contracts";
 import { MemoryService } from "@/services/memory-service";
 import React, { createContext, useState } from "react";
 
@@ -12,7 +13,9 @@ type MemoryContextProps = {
   setCoverPhoto(coverPhoto: string): void;
   packageId: string;
   setPackageId(packageId: string): void;
-  create(): Promise<{ id: string }>;
+  create(): Promise<MemoryServiceCreateOutput>;
+  clientSecret?: string;
+  setClientSecret(clientSecret?: string): void;
 };
 
 export const MemoryContext = createContext<MemoryContextProps>(
@@ -32,10 +35,10 @@ function base64ToBlob(base64: string, contentType = "") {
 export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState<Date>();
-  // const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
   const [packageId, setPackageId] = useState("");
   const [coverFoto, setCoverPhoto] = useState("");
+  const [clientSecret, setClientSecret] = useState<string>();
 
   const generateFile = (): File | undefined => {
     if (!coverFoto) return undefined;
@@ -44,7 +47,7 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
     return new File([blob], "image.png", { type: contentType });
   };
 
-  const create = async (): Promise<{ id: string }> => {
+  const create = async (): Promise<MemoryServiceCreateOutput> => {
     const memoryService = new MemoryService();
     return await memoryService.create({
       address: location,
@@ -61,6 +64,7 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         name,
         startDate,
         location,
+        clientSecret,
         coverFoto,
         packageId,
         setName,
@@ -69,6 +73,7 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         setCoverPhoto,
         setPackageId,
         create,
+        setClientSecret,
       }}
     >
       {children}

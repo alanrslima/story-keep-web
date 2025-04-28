@@ -10,9 +10,19 @@ export type PlansFormProps = {
 
 export function PlansForm({ plans }: PlansFormProps) {
   const navigate = useRouter();
-  const { create, setPackageId, packageId } = useMemory();
+
+  const { create, setPackageId, packageId, setClientSecret } = useMemory();
+
+  const plan = useMemo(() => {
+    return plans.find((item) => item.id === packageId);
+  }, [plans, packageId]);
+
   const onSubmit = async () => {
-    const { id } = await create();
+    const { id, token } = await create();
+    setClientSecret(token);
+    if ((plan?.priceCents || 0) > 0) {
+      return navigate.replace(`payment?id=${id}`);
+    }
     navigate.replace(`success?id=${id}`);
   };
 

@@ -2,6 +2,7 @@ import { DateUtils } from "@/utils/date-utils";
 import { Api } from "./api";
 import {
   MemoryServiceCreateInput,
+  MemoryServiceCreateOutput,
   MemoryServiceDetailInput,
   MemoryServiceListOutput,
 } from "./contracts/memory-service-contracts";
@@ -16,9 +17,11 @@ export class MemoryService {
     this.api = new Api();
   }
 
-  async create(input: MemoryServiceCreateInput): Promise<{ id: string }> {
+  async create(
+    input: MemoryServiceCreateInput
+  ): Promise<MemoryServiceCreateOutput> {
     const formData = FormUtils.objectToFormData(input);
-    const { data } = await this.api.post<{ id: string }>(
+    const { data } = await this.api.post<{ id: string; token?: string }>(
       "/api/memory",
       formData
     );

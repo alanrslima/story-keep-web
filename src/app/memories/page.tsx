@@ -13,7 +13,7 @@ function Memories() {
     <DefaultScreen isLoading={isLoading}>
       {!isEmpty && (
         <Headline
-          title="Seus baús de memórias"
+          title="Seus álbuns de memórias"
           rightComponent={
             <Link href={{ pathname: "/create-a-memory/name" }}>
               <Button title="Criar álbum" leadingIcon="Plus" />
