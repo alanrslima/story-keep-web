@@ -1,4 +1,10 @@
-import { Button, Form, RadioGroup, Typography } from "@/components/ui";
+import {
+  Button,
+  Form,
+  RadioGroup,
+  RadioGroupOptionsProps,
+  Typography,
+} from "@/components/ui";
 import { useMemory } from "@/hooks/use-memory";
 import { PlanList } from "@/types/plan";
 import { useRouter } from "next/navigation";
@@ -27,11 +33,15 @@ export function PlansForm({ plans }: PlansFormProps) {
   };
 
   const options = useMemo(() => {
-    return plans?.map((item) => ({
-      title: item.name,
-      value: item.id,
-      description: item.description,
-    }));
+    return plans?.map(
+      (item) =>
+        ({
+          title: item.name,
+          value: item.id,
+          description: item.description,
+          price: item.priceLabel,
+        } as RadioGroupOptionsProps)
+    );
   }, [plans]);
 
   return (

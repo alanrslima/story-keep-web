@@ -26,7 +26,7 @@ function CreateAMemoryPayment() {
           appearance: { theme: "flat" },
         }}
       >
-        <PaymentForm />
+        {clientSecret && id && <PaymentForm id={id} />}
       </Elements>
     </StepLayout>
   );

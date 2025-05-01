@@ -4,8 +4,13 @@ import { Typography } from "./typography";
 import classNames from "classnames";
 import { Icon } from "./icon";
 
+export type RadioGroupOptionsProps = Omit<
+  RadioItemProps,
+  "onChange" | "selected" | "name"
+>;
+
 export type RadioGroupProps = {
-  options: { title: string; value: string; description: string }[];
+  options: RadioGroupOptionsProps[];
   value: string;
   onChange(value: string): void;
 };
@@ -15,10 +20,8 @@ export function RadioGroup({ options, value, onChange }: RadioGroupProps) {
     <div className="flex gap-2 flex-col">
       {options.map((option) => (
         <RadioItem
+          {...option}
           key={option.value}
-          title={option.title}
-          description={option.description}
-          value={option.value}
           name={option.value}
           selected={option.value === value}
           onChange={onChange}
@@ -35,6 +38,8 @@ export type RadioItemProps = {
   onChange(value: string): void;
   title: string;
   description?: string;
+  strikethroughPrice?: string;
+  price?: string;
 };
 
 export function RadioItem({
@@ -44,6 +49,8 @@ export function RadioItem({
   onChange,
   title,
   description,
+  price,
+  strikethroughPrice,
 }: RadioItemProps) {
   return (
     <label
@@ -77,9 +84,9 @@ export function RadioItem({
         <Typography type="body-default">{description}</Typography>
       </div>
       <div className="flex items-end flex-col">
-        <Typography type="body-large-bold">R$19,90</Typography>
+        <Typography type="body-large-bold">{price}</Typography>
         <Typography through type="body-default">
-          R$19,90
+          {strikethroughPrice}
         </Typography>
       </div>
     </label>

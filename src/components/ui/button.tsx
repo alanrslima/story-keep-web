@@ -39,7 +39,7 @@ export function Button({
       {...rest}
       disabled={isLoading}
       className={classNames(
-        "py-2 px-6 justify-center items-center flex gap-3 rounded-full disabled:cursor-not-allowed",
+        "py-2 px-6 justify-center items-center flex gap-2 rounded-full disabled:cursor-not-allowed",
         {
           "w-full": full,
           "bg-primary-light text-content-primary": variant === "primary",

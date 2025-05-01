@@ -15,13 +15,15 @@ export function PaymentForm(props: PaymentFormProps) {
 
   const onSubmit = async () => {
     if (!stripe || !elements) return;
-
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: `http://localhost:3001/create-a-memory/success?id=${props.id}`,
       },
     });
+    if (error) {
+      console.error(error);
+    }
   };
 
   return (

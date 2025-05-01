@@ -4,4 +4,6 @@ export type PlanList = {
   description: string;
   currencyCode: string;
   priceCents: number;
+  price: string;
+  priceLabel: string;
 };

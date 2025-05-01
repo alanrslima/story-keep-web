@@ -10,6 +10,7 @@ import { withAuth } from "@/components";
 function CreateAMemorySuccess() {
   const { getQueryParams } = useQueryParams();
   const screenParams = getQueryParams();
+  console.log("screenParams", screenParams);
   const { memory } = useMemoryDetail({ id: screenParams.id });
 
   return (
