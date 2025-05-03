@@ -34,7 +34,13 @@ function Memories() {
       )}
       <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:flex-row gap-4">
         {memories.map((memory) => (
-          <Link key={memory.id} href={{ pathname: "/memory" }}>
+          <Link
+            key={memory.id}
+            href={{
+              pathname: "/memory",
+              query: { id: memory.id },
+            }}
+          >
             <ItemTile
               title={memory.name}
               description={memory.address}

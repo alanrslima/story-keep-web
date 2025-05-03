@@ -1,0 +1,43 @@
+@keyframes circular-motion {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(40vw, 0) rotate(90deg);
+  }
+  50% {
+    transform: translate(40vw, 40vh) rotate(180deg);
+  }
+  75% {
+    transform: translate(0, 40vh) rotate(270deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+@keyframes circular-motion-reverse {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-40vw, 0) rotate(-90deg);
+  }
+  50% {
+    transform: translate(-40vw, -40vh) rotate(-180deg);
+  }
+  75% {
+    transform: translate(0, -40vh) rotate(-270deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(-360deg);
+  }
+}
+
+.animate-blur1 {
+  animation: circular-motion 10s linear infinite;
+}
+
+.animate-blur2 {
+  animation: circular-motion-reverse 10s linear infinite;
+}

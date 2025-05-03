@@ -44,6 +44,8 @@ export class MemoryService {
     });
     return {
       ...data,
+      formattedDate:
+        data.startDate && DateUtils.formatDate(data.startDate, "PP"),
       startDate: data.startDate ? new Date(data.startDate) : undefined,
     };
   }

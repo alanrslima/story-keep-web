@@ -9,7 +9,7 @@ type MemoryContextProps = {
   setStartDate(date: Date): void;
   location: string;
   setLocation(location: string): void;
-  coverFoto?: string;
+  coverPhoto?: string;
   setCoverPhoto(coverPhoto: string): void;
   packageId: string;
   setPackageId(packageId: string): void;
@@ -37,13 +37,13 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [startDate, setStartDate] = useState<Date>();
   const [location, setLocation] = useState("");
   const [packageId, setPackageId] = useState("");
-  const [coverFoto, setCoverPhoto] = useState("");
+  const [coverPhoto, setCoverPhoto] = useState("");
   const [clientSecret, setClientSecret] = useState<string>();
 
   const generateFile = (): File | undefined => {
-    if (!coverFoto) return undefined;
-    const contentType = coverFoto.split(";")[0].split(":")[1];
-    const blob = base64ToBlob(coverFoto, contentType);
+    if (!coverPhoto) return undefined;
+    const contentType = coverPhoto.split(";")[0].split(":")[1];
+    const blob = base64ToBlob(coverPhoto, contentType);
     return new File([blob], "image.png", { type: contentType });
   };
 
@@ -65,7 +65,7 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         startDate,
         location,
         clientSecret,
-        coverFoto,
+        coverPhoto,
         packageId,
         setName,
         setLocation,

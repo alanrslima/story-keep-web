@@ -1,9 +1,6 @@
 "use client";
 
-import { Button, Typography, Icon } from "@/components/ui";
-import { useMemory } from "@/hooks/use-memory";
-import { ChangeEvent, useEffect, useRef } from "react";
-import imageCompression from "browser-image-compression";
+import { Card } from "@/components/ui";
 import { DateUtils } from "@/utils/date-utils";
 
 export type MemoryCardProps = {
@@ -11,96 +8,20 @@ export type MemoryCardProps = {
   location?: string;
   date?: Date;
   coverPhoto?: string;
-  disableChangeImage?: boolean;
 };
 
 export function MemoryCard({
   name,
   date,
   location,
-  coverPhoto: coverPhotoProps,
-  disableChangeImage = false,
+  coverPhoto,
 }: MemoryCardProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const { coverFoto, setCoverPhoto } = useMemory();
-
-  useEffect(() => {
-    if (coverPhotoProps) {
-      setCoverPhoto(coverPhotoProps);
-    }
-  }, [coverPhotoProps, setCoverPhoto]);
-
-  const handleClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const onChangeImage = async (evt: ChangeEvent<HTMLInputElement>) => {
-    const file = evt.target.files?.[0];
-    if (file) {
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1920,
-        useWebWorker: true,
-        initialQuality: 0.8,
-      };
-      const compressedFile = await imageCompression(file, options);
-      const reader = new FileReader();
-      reader.onload = (e) => setCoverPhoto(e.target?.result as string);
-      reader.readAsDataURL(compressedFile);
-    }
-  };
-
   return (
-    <div
-      style={{
-        backgroundImage: coverFoto
-          ? `url(${coverFoto})`
-          : "url('/noisy-gradient-1.png')",
-      }}
-      className="bg-cover w-full min-w-[300px] max-w-[350px] overflow-hidden rounded-md h-[530px] shadow-2xl shadow-neutral-300 flex flex-col"
-    >
-      {!disableChangeImage && (
-        <div className="p-6 justify-end flex">
-          <Button
-            onClick={handleClick}
-            variant="tertiary"
-            leadingIcon="ImageUp"
-            title="Incluir imagem"
-          />
-          <input
-            accept="image/*"
-            type="file"
-            onChange={onChangeImage}
-            ref={fileInputRef}
-            style={{ display: "none" }}
-          />
-        </div>
-      )}
-
-      <div className="flex flex-1 flex-col bg-gradient-to-t from-neutral-900 to-transparent p-6 justify-end gap-4">
-        {name && (
-          <Typography type="title-screen" textColor="text-white">
-            {name}
-          </Typography>
-        )}
-        {(date || location) && (
-          <div className="flex  flex-col gap-2">
-            {date && (
-              <Typography type="body-default-bold" textColor="text-white">
-                {DateUtils.formatDate(date, "PP")}
-              </Typography>
-            )}
-            {location && (
-              <div className="flex flex-1 gap-2">
-                <Icon name="MapPin" size={20} color="white" />
-                <Typography type="body-default" textColor="text-white">
-                  {location}
-                </Typography>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
+    <Card
+      coverPhoto={coverPhoto}
+      date={date && DateUtils.formatDate(date, "PP")}
+      location={location}
+      name={name}
+    />
   );
 }

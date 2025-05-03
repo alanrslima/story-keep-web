@@ -3,7 +3,7 @@ export type MemoriesList = MemoriesListItem[];
 export type MemoriesListItem = {
   id: string;
   name: string;
-  formattedDate: string;
+  formattedDate?: string;
   address?: string;
   startDate?: Date;
   photosCount: number;

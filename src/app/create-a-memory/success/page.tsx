@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, Typography } from "@/components/ui";
-import { MemoryCard } from "../components/memory-card";
+import "./page.css";
+import { Button, Card, Typography } from "@/components/ui";
 import Link from "next/link";
 import { useQueryParams } from "@/hooks/use-query-params";
 import { useMemoryDetail } from "@/hooks/use-memory-detail";
@@ -10,20 +10,18 @@ import { withAuth } from "@/components";
 function CreateAMemorySuccess() {
   const { getQueryParams } = useQueryParams();
   const screenParams = getQueryParams();
-  console.log("screenParams", screenParams);
   const { memory } = useMemoryDetail({ id: screenParams.id });
 
   return (
     <div className="p-12 h-dvh relative w-dvw overflow-hidden bg-primary-light flex flex-col justify-center items-center">
-      <div className="w-[820px] h-[540px] bg-[#BED5D2] rounded-full blur-[120px] -bottom-40 -right-40 rotate-45 absolute" />
-      <div className="w-[960px] h-[910px] bg-[#E6DACC] rounded-full blur-[120px] -top-40 -left-40 rotate-45 absolute" />
+      <div className="w-[820px] h-[540px] bg-[#BED5D2] rounded-full blur-[120px] absolute animate-blur1" />
+      <div className="w-[960px] h-[910px] bg-[#E6DACC] rounded-full blur-[120px] absolute animate-blur2 " />
       <div className="animate-fade-in-up z-50 max-w-[820px] justify-center flex flex-col gap-14">
         <div className="hidden md:flex justify-center flex-1">
           {memory && (
-            <MemoryCard
-              date={memory.startDate}
+            <Card
+              date={memory.formattedDate}
               location={memory.address}
-              disableChangeImage
               name={memory.name}
               coverPhoto={memory.coverImage?.url}
             />

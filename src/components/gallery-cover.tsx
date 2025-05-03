@@ -1,13 +1,28 @@
 import { useRef } from "react";
 import { GalleryView, GalleryViewHandleProps } from "./gallery-view";
-import { Icon, Typography } from "./ui";
+import { EmptyState, Icon, Typography } from "./ui";
 
-export function GalleryCover() {
+export type GalleryCoverProps = {
+  isEmpty?: boolean;
+};
+
+export function GalleryCover({ isEmpty }: GalleryCoverProps) {
   const galleryViewRef = useRef<GalleryViewHandleProps>(null);
 
   const onPress = () => {
     galleryViewRef.current?.show();
   };
+
+  if (isEmpty)
+    return (
+      <div className="h-[420px] flex justify-center items-center bg-background-elevated">
+        <EmptyState
+          title="Ainda não temos nenhum registro por aqui!"
+          message="Este espaço será preenchido com lembranças incríveis =)"
+          illustration={{ name: "camera", size: 250 }}
+        />
+      </div>
+    );
 
   return (
     <div className="grid relative gap-2 grid-cols-4 grid-rows-2 h-[420px]">

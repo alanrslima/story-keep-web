@@ -44,6 +44,23 @@ export default {
             transform: "translateY(0)",
           },
         },
+        moveBlurMemory: {
+          "0%": {
+            transform: "translate(0, 0) rotate(0deg)",
+          },
+          "25%": {
+            transform: "translate(30px, -30px) rotate(90deg)",
+          },
+          "50%": {
+            transform: "translate(0, -60px) rotate(180deg)",
+          },
+          "75%": {
+            transform: "translate(-30px, -30px) rotate(270deg)",
+          },
+          "100%": {
+            transform: "translate(0, 0) rotate(360deg)",
+          },
+        },
       },
     },
   },

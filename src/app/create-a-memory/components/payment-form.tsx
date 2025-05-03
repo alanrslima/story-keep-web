@@ -28,11 +28,11 @@ export function PaymentForm(props: PaymentFormProps) {
 
   return (
     <Form onSubmit={onSubmit}>
-      {() => (
+      {({ isLoading }) => (
         <div className="flex gap-8 flex-col">
           <PaymentElement />
           <div className="flex gap-4">
-            <Button type="submit" title="Continuar" />
+            <Button isLoading={isLoading} type="submit" title="Continuar" />
           </div>
         </div>
       )}

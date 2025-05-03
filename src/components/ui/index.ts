@@ -17,3 +17,4 @@ export * from "./alert";
 export * from "./form";
 export * from "./empty-state";
 export * from "./calendar/calendar";
+export * from "./card";
