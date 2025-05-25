@@ -1,51 +1,94 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "./button";
 import { IconButton } from "./icon-button";
 import { AnimatePresence, motion } from "framer-motion";
+import { Media } from "@/types/media";
+import { Typography } from "./typography";
 
-export function Gallery() {
-  const media = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+export type GalleryProps = {
+  media: Media[];
+};
 
-  const [item, setItem] = useState<string>();
+export function Gallery({ media }: GalleryProps) {
+  const [index, setIndex] = useState<number>();
 
-  const onPressItem = () => {
-    setItem("1");
+  const onPressItem = (i: number) => {
+    setIndex(i);
   };
 
   const onClose = () => {
-    setItem(undefined);
+    setIndex(undefined);
   };
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
-      {media.map((item) => (
+      {media.map((item, i) => (
         <div
-          key={item}
-          onClick={onPressItem}
+          key={item.id}
+          onClick={() => onPressItem(i)}
           className="relative aspect-square cursor-pointer"
         >
           <Image
             className="rounded-md"
             alt="image"
-            fill
-            src="https://images.pexels.com/photos/2240771/pexels-photo-2240771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            layout="fill"
+            objectFit="cover"
+            src={item.url}
           />
         </div>
       ))}
-      <GalleryCarousel item={item} onClose={onClose} />
+      {index !== undefined && (
+        <GalleryCarousel
+          index={index}
+          media={media}
+          onChangeIndex={setIndex}
+          onClose={onClose}
+        />
+      )}
     </div>
   );
 }
 
-function GalleryCarousel(props: { item?: string; onClose: () => void }) {
+function GalleryCarousel(props: {
+  index: number;
+  onClose: () => void;
+  media: Media[];
+  onChangeIndex(index: number): void;
+}) {
   "use client";
 
-  console.log("props", props.item);
+  const onPressNext = useCallback(() => {
+    if (props.media.length > props.index + 1) {
+      props.onChangeIndex(props.index + 1);
+    }
+  }, [props]);
+
+  const onPressPrevious = useCallback(() => {
+    if (props.index > 0) {
+      props.onChangeIndex(props.index - 1);
+    }
+  }, [props]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
+        onPressPrevious();
+      } else if (event.key === "ArrowRight") {
+        onPressNext();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onPressPrevious, onPressNext]);
+
+  const item = props.media[props.index];
 
   return (
     <AnimatePresence>
-      {props.item && (
+      {item && (
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,13 +109,20 @@ function GalleryCarousel(props: { item?: string; onClose: () => void }) {
               className="rounded-md object-contain"
               alt="image"
               fill
-              src="https://images.pexels.com/photos/2240771/pexels-photo-2240771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={item.url}
             />
             <div className="flex absolute left-0 p-6 items-center top-0 bottom-0">
-              <IconButton iconName="ArrowLeft" />
+              <IconButton iconName="ArrowLeft" onClick={onPressPrevious} />
             </div>
             <div className="flex absolute right-0 p-6 items-center top-0 bottom-0">
-              <IconButton iconName="ArrowRight" />
+              <IconButton iconName="ArrowRight" onClick={onPressNext} />
+            </div>
+          </div>
+          <div className="flex absolute bottom-0 left-0 p-6 right-0 justify-center items-center">
+            <div className="flex px-4 py-2 rounded-xl bg-black">
+              <Typography textColor="text-white" type="body-default-bold">
+                {props.index + 1}/{props.media.length}
+              </Typography>
             </div>
           </div>
         </motion.div>

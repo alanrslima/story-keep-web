@@ -1,3 +1,5 @@
+import { Media } from "./media";
+
 export type MemoriesList = MemoriesListItem[];
 
 export type MemoriesListItem = {
@@ -11,14 +13,19 @@ export type MemoriesListItem = {
 };
 
 export type MemoryDetail = MemoriesListItem & {
-  media: {
-    id: string;
-    name: string;
-    mimetype: string;
-  }[];
+  media: Media[];
   address?: string;
   mediaUrl: string;
   about: string;
   createdAt: string;
   coverImage?: { url: string };
+  status: MemoryStatus;
 };
+
+export type MemoryStatus =
+  | "created"
+  | "awaiting_payment"
+  | "paid"
+  | "failed"
+  | "canceled"
+  | "ready";

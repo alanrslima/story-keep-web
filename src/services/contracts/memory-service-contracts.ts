@@ -25,3 +25,7 @@ export type MemoryServiceListOutput = {
 export type MemoryServiceDetailInput = {
   memoryId: string;
 };
+
+export type MemoryServiceGetSourceInput = { mediaRegistryId: string };
+
+export type MemoryServiceGetSourceOutput = { url: string; expiresAt: string };

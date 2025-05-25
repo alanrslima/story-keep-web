@@ -1,55 +1,44 @@
 import { useRef } from "react";
 import { GalleryView, GalleryViewHandleProps } from "./gallery-view";
-import { EmptyState, Icon, Typography } from "./ui";
+import { Button, EmptyState, Icon, Typography } from "./ui";
+import { Media } from "@/types/media";
 
 export type GalleryCoverProps = {
   isEmpty?: boolean;
+  media: Media[];
 };
 
-export function GalleryCover({ isEmpty }: GalleryCoverProps) {
+export function GalleryCover({ isEmpty, media }: GalleryCoverProps) {
   const galleryViewRef = useRef<GalleryViewHandleProps>(null);
 
   const onPress = () => {
     galleryViewRef.current?.show();
   };
 
+  const lastItems = media.slice(0, 6);
+
   if (isEmpty)
     return (
-      <div className="h-[420px] flex justify-center items-center bg-background-elevated">
+      <div className="h-[500px] flex justify-center items-center">
         <EmptyState
           title="Ainda não temos nenhum registro por aqui!"
-          message="Este espaço será preenchido com lembranças incríveis =)"
+          message="Compartilhe o qrcode com seus convidados para que este espaço será preenchido com lembranças incríveis =)"
           illustration={{ name: "camera", size: 250 }}
+          footerComponent={<Button title="Abrir QRCode" variant="outline" />}
         />
       </div>
     );
 
   return (
-    <div className="grid relative gap-2 grid-cols-4 grid-rows-2 h-[420px]">
-      <div
-        style={{
-          backgroundImage:
-            "url('https://images.pexels.com/photos/30720435/pexels-photo-30720435/free-photo-of-scenic-beachfront-in-monterosso-al-mare-italy.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
-        }}
-        className="col-span-2 bg-cover cursor-pointer hover:opacity-80 transition-opacity"
-      ></div>
-      <div
-        style={{
-          backgroundImage:
-            "url('https://images.pexels.com/photos/30459667/pexels-photo-30459667/free-photo-of-historic-castle-landscape-in-albania-at-sunset.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
-        }}
-        className="col-span-2 bg-cover cursor-pointer hover:opacity-80 transition-opacity"
-      ></div>
-      <div
-        style={{
-          backgroundImage:
-            "url('https://images.pexels.com/photos/30862653/pexels-photo-30862653/free-photo-of-charming-village-scene-in-lopud-croatia.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
-        }}
-        className="col-span-1 bg-cover cursor-pointer hover:opacity-80 transition-opacity"
-      />
-      <div className="col-span-1 bg-red-200 cursor-pointer hover:opacity-80 transition-opacity" />
-      <div className="col-span-1 bg-red-300 cursor-pointer hover:opacity-80 transition-opacity" />
-      <div className="col-span-1 bg-red-400 cursor-pointer hover:opacity-80 transition-opacity" />
+    <div className="grid relative gap-2 grid-cols-2 lg:grid-cols-3 grid-rows-2">
+      {lastItems.map((item) => (
+        <div
+          key={item.id}
+          onClick={onPress}
+          style={{ backgroundImage: `url(${item.url})` }}
+          className="bg-cover h-96 bg-background-neutral cursor-pointer hover:opacity-80 transition-opacity"
+        />
+      ))}
 
       <button
         onClick={onPress}
@@ -58,7 +47,7 @@ export function GalleryCover({ isEmpty }: GalleryCoverProps) {
         <Icon name="GalleryVerticalEnd" />
         <Typography type="button-small">Mostrar todos os registros</Typography>
       </button>
-      <GalleryView ref={galleryViewRef} />
+      <GalleryView media={media} ref={galleryViewRef} />
     </div>
   );
 }

@@ -4,6 +4,8 @@ import {
   MemoryServiceCreateInput,
   MemoryServiceCreateOutput,
   MemoryServiceDetailInput,
+  MemoryServiceGetSourceInput,
+  MemoryServiceGetSourceOutput,
   MemoryServiceListOutput,
 } from "./contracts/memory-service-contracts";
 import { PlanList } from "@/types/plan";
@@ -48,6 +50,16 @@ export class MemoryService {
         data.startDate && DateUtils.formatDate(data.startDate, "PP"),
       startDate: data.startDate ? new Date(data.startDate) : undefined,
     };
+  }
+
+  async getSource(
+    input: MemoryServiceGetSourceInput
+  ): Promise<MemoryServiceGetSourceOutput> {
+    const { data } = await this.api.get<MemoryServiceGetSourceOutput>(
+      "/api/memory/media-registry/source",
+      { params: input }
+    );
+    return data;
   }
 
   async listPlans(): Promise<PlanList[]> {
