@@ -18,3 +18,4 @@ export * from "./form";
 export * from "./empty-state";
 export * from "./calendar/calendar";
 export * from "./card";
+export * from "./badge";

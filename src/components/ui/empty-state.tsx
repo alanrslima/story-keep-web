@@ -14,10 +14,16 @@ export function EmptyState(props: EmptyStateProps) {
     <div className="flex flex-col flex-1 justify-center items-center">
       <div className="flex flex-col max-w-[420px] items-center gap-1">
         {props.illustration && <Illustration {...props.illustration} />}
-        <Typography center type="body-large-bold">
+        <Typography
+          textColor="text-content-primary"
+          center
+          type="body-large-bold"
+        >
           {props.title}
         </Typography>
-        <Typography center>{props.message}</Typography>
+        <Typography textColor="text-content-secondary" center>
+          {props.message}
+        </Typography>
         <div className="mt-6">{props.footerComponent}</div>
       </div>
     </div>

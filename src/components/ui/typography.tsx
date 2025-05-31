@@ -1,15 +1,19 @@
 import { ElementType, PropsWithChildren } from "react";
 import cn from "classnames";
+import { Color } from "@/types/color";
+
+export type TypographyTextColor =
+  | Color
+  | "text-white"
+  | "text-black"
+  | "text-content-primary"
+  | "text-content-secondary"
+  | "text-content-tertiary"
+  | "text-red-600";
 
 type TypographyBaseProps = PropsWithChildren & {
   as?: ElementType;
-  textColor?:
-    | "text-white"
-    | "text-black"
-    | "text-content-primary"
-    | "text-content-secondary"
-    | "text-content-tertiary"
-    | "text-red-600";
+  textColor?: TypographyTextColor;
   through?: boolean;
   shadow?: boolean;
   center?: boolean;
@@ -59,11 +63,11 @@ export function Typography({
     <Tag
       role=""
       aria-level={1}
-      className={cn("text-content_primary font-poppins", textColor, {
+      className={cn("text-content_primary font-poppins", `text-${textColor}`, {
         "drop-shadow-md": shadow,
         "line-through": through,
         "text-center": center,
-        "text-xs": type === "caption",
+        "text-xs font-semibold": type === "caption",
         "text-sm font-semibold":
           type === "button-small" || type === "body-default-bold",
         "text-base font-semibold":

@@ -30,7 +30,7 @@ export function GalleryCover({ isEmpty, media }: GalleryCoverProps) {
     );
 
   return (
-    <div className="grid relative gap-2 grid-cols-2 lg:grid-cols-3 grid-rows-2">
+    <div className="grid relative gap-2 grid-cols-2 lg:grid-cols-3 ">
       {lastItems.map((item) => (
         <div
           key={item.id}
@@ -44,8 +44,10 @@ export function GalleryCover({ isEmpty, media }: GalleryCoverProps) {
         onClick={onPress}
         className="absolute gap-2 flex items-center right-4 bottom-4 bg-white py-2 px-4 shadow-md rounded-md"
       >
-        <Icon name="GalleryVerticalEnd" />
-        <Typography type="button-small">Mostrar todos os registros</Typography>
+        <Icon color="black" name="GalleryVerticalEnd" />
+        <Typography textColor="black" type="button-small">
+          Mostrar todos os registros
+        </Typography>
       </button>
       <GalleryView media={media} ref={galleryViewRef} />
     </div>

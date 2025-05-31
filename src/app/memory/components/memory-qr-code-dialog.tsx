@@ -1,3 +1,4 @@
+import { SocialMediaShare } from "@/components";
 import { Button, Dialog, DialogProps, QRcode } from "@/components/ui";
 
 export type MemoryQRCodeDialogProps = DialogProps;
@@ -12,6 +13,7 @@ export function MemoryQRCodeDialog(props: MemoryQRCodeDialogProps) {
           <Button leadingIcon="Share" title="Compartilhar" full />
         </div>
       </div>
+      <SocialMediaShare />
     </Dialog>
   );
 }

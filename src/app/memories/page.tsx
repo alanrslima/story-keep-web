@@ -23,6 +23,7 @@ function Memories() {
       )}
       {isEmpty && (
         <EmptyState
+          illustration={{ name: "album" }}
           title="Crie um álbum de memórias"
           message="E começe a receber memórias compartilhadas de quem você mais ama"
           footerComponent={
@@ -47,6 +48,7 @@ function Memories() {
               subDescription={memory.formatedDate}
               label={`${memory.photosCount} memórias`}
               imageUrl={memory.coverImage?.url}
+              badgeText={memory.statusBadge}
             />
           </Link>
         ))}

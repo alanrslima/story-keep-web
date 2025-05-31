@@ -54,7 +54,7 @@ export function Card({
           ? `url(${coverPhoto})`
           : "url('/noisy-gradient-1.png')",
       }}
-      className="bg-cover w-full min-w-[300px] max-w-[350px] overflow-hidden rounded-md h-[530px] shadow-2xl shadow-neutral-300 flex flex-col"
+      className="bg-cover w-full min-w-[300px] max-w-[350px] overflow-hidden rounded-md h-[530px] shadow-xl shadow-background-elevated flex flex-col"
     >
       {onChangePhoto && (
         <div className="p-6 justify-end flex">
@@ -76,21 +76,21 @@ export function Card({
 
       <div className="flex flex-1 flex-col bg-gradient-to-t from-neutral-900 to-transparent p-6 justify-end gap-4">
         {name && (
-          <Typography type="title-screen" textColor="text-white">
+          <Typography type="title-screen" textColor="white">
             {name}
           </Typography>
         )}
         {(date || location) && (
-          <div className="flex  flex-col gap-2">
+          <div className="flex flex-col gap-2">
             {date && (
-              <Typography type="body-default-bold" textColor="text-white">
+              <Typography type="body-default-bold" textColor="white">
                 {date}
               </Typography>
             )}
             {location && (
               <div className="flex flex-1 gap-2">
                 <Icon name="MapPin" size={20} color="white" />
-                <Typography type="body-default" textColor="text-white">
+                <Typography type="body-default" textColor="white">
                   {location}
                 </Typography>
               </div>

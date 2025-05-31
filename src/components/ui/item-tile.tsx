@@ -1,3 +1,4 @@
+import { Badge } from "./badge";
 import { Typography } from "./typography";
 
 export type ItemTileProps = {
@@ -6,6 +7,7 @@ export type ItemTileProps = {
   subDescription?: string;
   label: string;
   imageUrl?: string;
+  badgeText?: string;
 };
 
 export function ItemTile(props: ItemTileProps) {
@@ -17,8 +19,14 @@ export function ItemTile(props: ItemTileProps) {
             ? `url(${props.imageUrl})`
             : "url('/noisy-gradient-1.png')",
         }}
-        className="min-h-[420px] bg-cover rounded-md"
-      ></div>
+        className="min-h-[420px] relative bg-background-neutral bg-cover rounded-md"
+      >
+        {props.badgeText && (
+          <div className="absolute shadow-lg left-4 top-4">
+            <Badge text={props.badgeText} />
+          </div>
+        )}
+      </div>
       <div className="flex flex-col gap-1 py-2">
         <Typography type="body-large-bold">{props.title}</Typography>
         <Typography textColor="text-content-secondary">

@@ -59,7 +59,6 @@ export function MemoryLayout({ memory }: MemoryLayoutProps) {
           <GalleryCover media={memory.media} isEmpty={!memory.media.length} />
         </div>
       </main>
-
       <MemoryQRCodeDialog onClose={closeQRCode} isOpen={showQRCode} />
     </main>
   );

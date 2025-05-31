@@ -37,7 +37,7 @@ function AlertLeading({ type }: { type: AlertTypeProps }) {
 
 export function Alert({ message, title, type = "neutral" }: AlertProps) {
   return (
-    <div className="bg-background-neutral border-[1px] p-4 rounded-md flex gap-4">
+    <div className="bg-background-neutral border-[1px] border-border-neutral p-4 rounded-md flex gap-4">
       <AlertLeading type={type} />
       <div>
         {title && (

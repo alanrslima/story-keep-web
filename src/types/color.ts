@@ -1,0 +1,16 @@
+export type Color =
+  | "primary"
+  | "primary-light"
+  | "secondary"
+  | "background-screen"
+  | "background-elevated"
+  | "background-neutral"
+  | "content-primary"
+  | "content-secondary"
+  | "content-tertiary"
+  | "interactive-primary"
+  | "interactive-secondary"
+  | "interactive-accent"
+  | "border-neutral"
+  | "black"
+  | "white";

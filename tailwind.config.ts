@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -19,16 +20,16 @@ export default {
         primary: "#FF7F50",
         "primary-light": "#FFB499",
         secondary: "#002733",
-        "background-screen": "#FBFAF9",
-        "background-elevated": "#FFFFFF",
-        "background-neutral": "#EFEBE7",
-        "content-primary": "#050506",
-        "content-secondary": "#454D54",
-        "content-tertiary": "#67747E",
+        "background-screen": "var(--background-screen)",
+        "background-elevated": "var(--background-elevated)",
+        "background-neutral": "var(--background-neutral)",
+        "content-primary": "var(--content-primary)",
+        "content-secondary": "var(--content-secondary)",
+        "content-tertiary": "var(--content-tertiary)",
         "interactive-primary": "#002733",
         "interactive-secondary": "#F2EBE4",
         "interactive-accent": "#FF7F50",
-        "border-neutral": "#B3B3B3",
+        "border-neutral": "var(--border-neutral)",
       },
       animation: {
         "fade-in-up": "fadeInUp 0.75s ease-out",

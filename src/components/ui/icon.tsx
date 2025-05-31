@@ -1,9 +1,11 @@
+import { Color } from "@/types/color";
 import classNames from "classnames";
 import { icons } from "lucide-react";
 
 export type IconNames = keyof typeof icons;
 
 export type IconColors =
+  | Color
   | "primary"
   | "secondary"
   | "white"
@@ -21,18 +23,5 @@ export type IconProps = {
 export function Icon({ name, size, color }: IconProps) {
   const LucideIcon = icons[name];
 
-  return (
-    <LucideIcon
-      size={size}
-      className={classNames({
-        "text-content-primary": color === "content-primary",
-        "text-content-secondary": color === "content-secondary",
-        "text-content-tertiary": color === "content-tertiary",
-        "text-primary": color === "primary",
-        "text-secondary": color === "secondary",
-        "text-black": color === "black",
-        "text-white": color === "white",
-      })}
-    />
-  );
+  return <LucideIcon size={size} className={classNames(`text-${color}`)} />;
 }

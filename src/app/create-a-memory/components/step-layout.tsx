@@ -15,7 +15,7 @@ export type StepLayoutProps = PropsWithChildren & {
 };
 
 export function StepLayout(props: StepLayoutProps) {
-  const { name, startDate, location } = useMemory();
+  const { name, startDate, location, setCoverPhoto, coverPhoto } = useMemory();
   const navigate = useRouter();
 
   return (
@@ -46,7 +46,13 @@ export function StepLayout(props: StepLayoutProps) {
             {props.children}
           </section>
           <section className="items-center hidden md:flex flex-[0.5] justify-center">
-            <MemoryCard name={name} date={startDate} location={location} />
+            <MemoryCard
+              name={name}
+              onChangePhoto={setCoverPhoto}
+              coverPhoto={coverPhoto}
+              date={startDate}
+              location={location}
+            />
           </section>
         </div>
       </main>

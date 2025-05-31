@@ -8,12 +8,14 @@ export type MemoryCardProps = {
   location?: string;
   date?: Date;
   coverPhoto?: string;
+  onChangePhoto?(photo: string | ArrayBuffer): void;
 };
 
 export function MemoryCard({
   name,
   date,
   location,
+  onChangePhoto,
   coverPhoto,
 }: MemoryCardProps) {
   return (
@@ -21,6 +23,7 @@ export function MemoryCard({
       coverPhoto={coverPhoto}
       date={date && DateUtils.formatDate(date, "PP")}
       location={location}
+      onChangePhoto={onChangePhoto}
       name={name}
     />
   );

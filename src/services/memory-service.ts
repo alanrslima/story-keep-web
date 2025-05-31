@@ -30,12 +30,22 @@ export class MemoryService {
     return data;
   }
 
+  private statusBadgeMapper(status: string) {
+    const mapper = {
+      awaiting_payment: "Aguardando pagamento",
+      payment_failed: "Falha de pagamento",
+      canceled: "Cancelado",
+    };
+    return mapper[status as keyof typeof mapper];
+  }
+
   async list(): Promise<MemoryServiceListOutput[]> {
     const { data } = await this.api.get<
       Omit<MemoryServiceListOutput, "formatedDate">[]
     >("/api/memory");
     return data.map((item) => ({
       ...item,
+      statusBadge: this.statusBadgeMapper(item.status),
       formatedDate: DateUtils.formatDate(item.startDate, "PPP"),
     }));
   }

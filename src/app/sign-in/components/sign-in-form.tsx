@@ -20,7 +20,11 @@ export function SignInForm() {
           <TextInput required label="E-mail" name="email" type="email" />
           <TextInput required label="Senha" name="password" type="password" />
           {error && (
-            <Alert title={error.title} description={error.description} />
+            <Alert
+              title={error.title}
+              type="negative"
+              message={error.description}
+            />
           )}
           <div className="flex flex-col mt-5">
             <Button type="submit" isLoading={isLoading} title="Entrar" />

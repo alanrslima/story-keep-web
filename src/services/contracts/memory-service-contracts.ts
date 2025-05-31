@@ -16,6 +16,8 @@ export type MemoryServiceListOutput = {
   name: string;
   startDate: string;
   address?: string;
+  status: string;
+  statusBadge?: string;
   photosCount: number;
   videosCount: number;
   formatedDate?: string;

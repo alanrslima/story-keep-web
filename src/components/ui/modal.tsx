@@ -71,7 +71,7 @@ export function Modal(props: ModalProps) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="bg-white  rounded-2xl shadow-lg h-full w-full relative"
+                className="bg-background rounded-2xl shadow-lg h-full w-full relative"
               >
                 <div className="flex w-full h-full flex-col">
                   <div className="flex z-50 p-6 shadow-lg">
