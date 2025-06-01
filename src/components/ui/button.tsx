@@ -30,7 +30,7 @@ function getContentColor(variant: ButtonVariants) {
     minimal: "content-primary",
     outline: "content-primary",
     primary: "black",
-    secondary: "black",
+    secondary: "primary",
     tertiary: "white",
   };
   return mapper[variant];
@@ -58,7 +58,7 @@ export function Button({
           "bg-secondary text-primary-light": variant === "secondary",
           "bg-[rgba(0,0,0,0.4)]": variant === "tertiary",
           "bg-transparent px-[0px] text-content-primary": variant === "minimal",
-          "bg-transparent border-[1px] border-border-neutral text-content-primary":
+          "bg-transparent border-[1px] border-border-neutral":
             variant === "outline",
           "h-[32px]": size === "xs",
           "h-[36px]": size === "sm",

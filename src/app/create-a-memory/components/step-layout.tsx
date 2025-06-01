@@ -45,7 +45,7 @@ export function StepLayout(props: StepLayoutProps) {
             </Link>
             {props.children}
           </section>
-          <section className="items-center hidden md:flex flex-[0.5] justify-center">
+          <section className="items-center hidden md:flex flex-[0.5] max-w-[350px] justify-center">
             <MemoryCard
               name={name}
               onChangePhoto={setCoverPhoto}

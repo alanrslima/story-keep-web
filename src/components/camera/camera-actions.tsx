@@ -1,5 +1,6 @@
 import { PropsWithChildren, useRef, useState } from "react";
 import Webcam from "react-webcam";
+import { IconButton } from "../ui";
 
 export type OnTakedMediaProps = {
   type: "photo" | "video";
@@ -16,9 +17,15 @@ export type CameraActionsProps = {
 
 export function CameraActions(props: CameraActionsProps) {
   const getPhotoDimensions = () => {
-    const dimensionsfullHd = { width: 1080, height: 1920 };
+    const video = props.cameraRef.current?.video;
+    // console.log(video);
+
+    const width = video?.videoWidth || 1080;
+    const height = video?.videoHeight || 1920;
+    // const dimensionsfullHd = { width: 1080, height: 1920 };
+    const dimensionsfullHdDesktop = { width, height };
     // const dimensions4k = { width: 2160, height: 3840 };
-    return dimensionsfullHd;
+    return dimensionsfullHdDesktop;
   };
 
   const takePhoto = () => {
@@ -40,9 +47,7 @@ export function CameraActions(props: CameraActionsProps) {
     <section className="absolute bottom-0 left-0 right-0 flex items-center justify-evenly mb-14">
       <ImageUploader onTakedMedia={props.onTakedMedia} />
       <ActionButton onClick={takePhoto} />
-      <button onClick={props.onSwitch} className="h-[60px] w-[60px] bg-red-500">
-        Switch
-      </button>
+      <IconButton size="lg" iconName="SwitchCamera" onClick={props.onSwitch} />
     </section>
   );
 }
@@ -183,13 +188,14 @@ const ImageUploader = (props: ImageUploaderProps) => {
         className="hidden"
       />
 
+      <IconButton size="lg" iconName="Image" onClick={handleButtonClick} />
       {/* Icon button to open file selector */}
-      <button
+      {/* <button
         onClick={handleButtonClick}
         className="p-3 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition"
       >
         Upload
-      </button>
+      </button> */}
     </div>
   );
 };

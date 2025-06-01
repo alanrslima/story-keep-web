@@ -29,6 +29,7 @@ export function MemoryLayout({ memory }: MemoryLayoutProps) {
 
   const screemParams = getQueryParams();
   const showQRCode = !!getQueryParam("qr");
+  const memoryId = getQueryParam("id");
 
   const closeQRCode = () => {
     removeQueryParam("qr");
@@ -59,7 +60,11 @@ export function MemoryLayout({ memory }: MemoryLayoutProps) {
           <GalleryCover media={memory.media} isEmpty={!memory.media.length} />
         </div>
       </main>
-      <MemoryQRCodeDialog onClose={closeQRCode} isOpen={showQRCode} />
+      <MemoryQRCodeDialog
+        url={`https://192.168.160.17:3001/camera?id=${memoryId}`}
+        onClose={closeQRCode}
+        isOpen={showQRCode}
+      />
     </main>
   );
 }

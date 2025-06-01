@@ -54,7 +54,7 @@ export function Card({
           ? `url(${coverPhoto})`
           : "url('/noisy-gradient-1.png')",
       }}
-      className="bg-cover w-full min-w-[300px] max-w-[350px] overflow-hidden rounded-md h-[530px] shadow-xl shadow-background-elevated flex flex-col"
+      className="bg-cover w-full min-w-[300px]  overflow-hidden rounded-md h-[530px] shadow-xl shadow-background-elevated flex flex-col"
     >
       {onChangePhoto && (
         <div className="p-6 justify-end flex">

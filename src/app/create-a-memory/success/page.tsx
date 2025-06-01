@@ -19,12 +19,14 @@ function CreateAMemorySuccess() {
       <div className="animate-fade-in-up z-50 max-w-[820px] justify-center flex flex-col gap-14">
         <div className="hidden md:flex justify-center flex-1">
           {memory && (
-            <Card
-              date={memory.formattedDate}
-              location={memory.address}
-              name={memory.name}
-              coverPhoto={memory.coverImage?.url}
-            />
+            <div className="w-[350px]">
+              <Card
+                date={memory.formattedDate}
+                location={memory.address}
+                name={memory.name}
+                coverPhoto={memory.coverImage?.url}
+              />
+            </div>
           )}
         </div>
         <div className="flex flex-col gap-6 items-center">

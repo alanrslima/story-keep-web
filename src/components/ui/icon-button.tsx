@@ -24,7 +24,7 @@ export function IconButton({
     <button
       {...props}
       className={classNames(
-        "rounded-full bg-background-neutral flex justify-center items-center",
+        "rounded-full bg-background-neutral flex justify-center items-center active:opacity-50",
         {
           "w-6 h-6": size === "sm",
           "w-10 h-10": size === "base",
