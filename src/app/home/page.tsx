@@ -8,10 +8,13 @@ import { GalleryResume } from "./components/gallery-resume";
 import { withAuth } from "@/components";
 import { useMediaRegistry } from "@/hooks/use-media-registry";
 import { useMemories } from "@/hooks/use-memories";
+import { useMemo } from "react";
 
 function Home() {
   const { data } = useMediaRegistry();
   const { memories } = useMemories();
+
+  const lastMemories = useMemo(() => memories.slice(0, 4), [memories]);
 
   return (
     <div>
@@ -20,11 +23,21 @@ function Home() {
         <div>
           <Headline
             title="Últimos baús de memórias"
-            rightComponent={<Button title="Ver todas" variant="minimal" />}
+            rightComponent={
+              <Link href="memories">
+                <Button title="Ver todas" variant="minimal" />
+              </Link>
+            }
           />
           <div className="grid grid-cols-2 md:grid-cols-4  md:flex-row gap-4">
-            {memories.map((memory) => (
-              <Link key={memory.id} href={{ pathname: "/memory" }}>
+            {lastMemories.map((memory) => (
+              <Link
+                key={memory.id}
+                href={{
+                  pathname: "/memory",
+                  query: { id: memory.id },
+                }}
+              >
                 <ItemTile
                   title={memory.name}
                   description={memory.address}

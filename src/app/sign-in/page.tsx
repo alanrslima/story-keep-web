@@ -1,6 +1,7 @@
-import { Button, Divider, Typography } from "@/components/ui";
+import { Divider, Typography } from "@/components/ui";
 import Link from "next/link";
 import { SignInForm } from "./components/sign-in-form";
+import { GoogleAuth } from "./components/google-auth";
 
 export default function SignInPage() {
   return (
@@ -8,18 +9,7 @@ export default function SignInPage() {
       <div className="mx-auto max-w-[620px] gap-10 flex px-5 flex-col justify-center h-full">
         <Typography type="title-screen">Acesse a StoryKeep</Typography>
         <div className="flex flex-col gap-3">
-          <Button
-            size="xl"
-            leadingIcon="GlobeLock"
-            title="Continue com o Google"
-            variant="outline"
-          />
-          <Button
-            leadingIcon="Facebook"
-            size="xl"
-            title="Continue com o Facebook"
-            variant="outline"
-          />
+          <GoogleAuth />
         </div>
         <Divider />
         <SignInForm />

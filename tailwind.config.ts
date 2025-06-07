@@ -13,6 +13,7 @@ export default {
       fontFamily: {
         poppins: ["Poppins", ...fontFamily.sans],
         montserrat: ["Montserrat", ...fontFamily.sans],
+        satisfy: ["Satisfy", ...fontFamily.sans],
       },
       colors: {
         background: "var(--background)",
@@ -33,6 +34,8 @@ export default {
       },
       animation: {
         "fade-in-up": "fadeInUp 0.75s ease-out",
+        "fade-in-right": "fadeInRight 0.75s ease-out",
+        "fade-in-left": "fadeInLeft 0.75s ease-out",
       },
       keyframes: {
         fadeInUp: {
@@ -43,6 +46,26 @@ export default {
           "100%": {
             opacity: "1",
             transform: "translateY(0)",
+          },
+        },
+        fadeInRight: {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(-50px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
+          },
+        },
+        fadeInLeft: {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(50px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
           },
         },
         moveBlurMemory: {

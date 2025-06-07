@@ -18,3 +18,11 @@ export type AuthServiceGetMeOutput = {
   name: string;
   permissions: string[];
 };
+
+export type AuthServiceSignInGoogleInput = {
+  idToken: string;
+};
+
+export type AuthServiceSignInGoogleOutput = {
+  token: string;
+};

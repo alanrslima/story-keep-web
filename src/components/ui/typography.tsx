@@ -11,30 +11,40 @@ export type TypographyTextColor =
   | "text-content-tertiary"
   | "text-red-600";
 
-type TypographyBaseProps = PropsWithChildren & {
-  as?: ElementType;
-  textColor?: TypographyTextColor;
-  through?: boolean;
-  shadow?: boolean;
-  center?: boolean;
-  type?:
-    | "caption"
-    | "button-small"
-    | "button-default"
-    | "button-large"
-    | "body-large"
-    | "body-large-bold"
-    | "body-default"
-    | "body-default-bold"
-    | "title-group"
-    | "title-body"
-    | "title-subsection"
-    | "title-section"
-    | "title-screen"
-    | "display-small"
-    | "display-medium"
-    | "display-large";
-};
+type TypographyBaseProps = PropsWithChildren &
+  Omit<
+    React.DetailedHTMLProps<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      HTMLButtonElement
+    >,
+    "type"
+  > & {
+    as?: ElementType;
+    textColor?: TypographyTextColor;
+    through?: boolean;
+    shadow?: boolean;
+    center?: boolean;
+    type?:
+      | "caption"
+      | "button-small"
+      | "button-default"
+      | "button-large"
+      | "body-large"
+      | "body-large-bold"
+      | "body-default"
+      | "body-default-bold"
+      | "title-group"
+      | "title-body"
+      | "title-subsection"
+      | "title-section"
+      | "title-screen"
+      | "display-small"
+      | "display-medium"
+      | "display-large"
+      | "script-small"
+      | "script-medium"
+      | "script-large";
+  };
 
 // Conditional props for 'label'
 type LabelProps = {
@@ -63,6 +73,7 @@ export function Typography({
     <Tag
       role=""
       aria-level={1}
+      style={{ wordBreak: "break-word" }}
       className={cn("text-content_primary font-poppins", `text-${textColor}`, {
         "drop-shadow-md": shadow,
         "line-through": through,
@@ -83,6 +94,9 @@ export function Typography({
         "text-3xl md:text-5xl font-semibold": type === "display-small",
         "text-4xl md:text-6xl font-semibold": type === "display-medium",
         "text-5xl md:text-7xl font-semibold": type === "display-large",
+        "text-base font-satisfy": type === "script-small",
+        "text-lg font-satisfy": type === "script-medium",
+        "text-2xl font-satisfy": type === "script-large",
       })}
       {...props}
     >

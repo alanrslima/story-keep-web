@@ -2,11 +2,11 @@
 
 import { Alert, Button, Card } from "@/components/ui";
 import { useQueryParams } from "@/hooks/use-query-params";
-import Link from "next/link";
 import { MemoryQRCodeDialog } from "./memory-qr-code-dialog";
 import { GalleryCover } from "@/components/gallery-cover";
 import { ActionCard } from "@/components/ui/action-card";
 import { MemoryDetail, MemoryStatus } from "@/types/memory";
+import { useRouter } from "next/navigation"; // ✅ App Router
 
 export type MemoryLayoutProps = {
   memory: MemoryDetail;
@@ -26,6 +26,7 @@ function MemoryAlert(props: { status: MemoryStatus }) {
 
 export function MemoryLayout({ memory }: MemoryLayoutProps) {
   const { getQueryParam, removeQueryParam, getQueryParams } = useQueryParams();
+  const router = useRouter();
 
   const screemParams = getQueryParams();
   const showQRCode = !!getQueryParam("qr");
@@ -40,9 +41,12 @@ export function MemoryLayout({ memory }: MemoryLayoutProps) {
       <MemoryAlert status={memory.status} />
       <div className="flex pb-6 justify-between">
         <div>
-          <Link href={{ pathname: "/memories" }}>
-            <Button variant="minimal" leadingIcon="ArrowLeft" title="Voltar" />
-          </Link>
+          <Button
+            onClick={router.back}
+            variant="minimal"
+            leadingIcon="ArrowLeft"
+            title="Voltar"
+          />
         </div>
         <div className="flex gap-2"></div>
       </div>

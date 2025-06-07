@@ -4,7 +4,7 @@ import { Button, ProgressBar } from "@/components/ui";
 
 import { PropsWithChildren } from "react";
 import Link from "next/link";
-import { MemoryCard } from "./memory-card";
+import { MemoryPolaroid } from "./memory-polaroid";
 import { useMemory } from "@/hooks/use-memory";
 import { useRouter } from "next/navigation";
 
@@ -34,7 +34,7 @@ export function StepLayout(props: StepLayoutProps) {
         percentage={props.percentage}
       />
       <main className="flex flex-1">
-        <div className="animate-fade-in-up max-w-[1120px] w-full mx-auto flex flex-col md:flex-row">
+        <div className="animate-fade-in-left gap-16 max-w-[1120px] w-full mx-auto flex flex-col md:flex-row">
           <section className="box-border px-8 gap-8 flex flex-col justify-center flex-1 md:flex-[0.5]">
             <Link href={props.previousPath}>
               <Button
@@ -46,7 +46,7 @@ export function StepLayout(props: StepLayoutProps) {
             {props.children}
           </section>
           <section className="items-center hidden md:flex flex-[0.5] max-w-[350px] justify-center">
-            <MemoryCard
+            <MemoryPolaroid
               name={name}
               onChangePhoto={setCoverPhoto}
               coverPhoto={coverPhoto}

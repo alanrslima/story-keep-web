@@ -1,6 +1,8 @@
 import { Api } from "./api";
 import {
   AuthServiceGetMeOutput,
+  AuthServiceSignInGoogleInput,
+  AuthServiceSignInGoogleOutput,
   AuthServiceSignInInput,
   AuthServiceSignInOutput,
   AuthServiceSignUpInput,
@@ -27,6 +29,16 @@ export class AuthService {
   ): Promise<AuthServiceSignInOutput> {
     const { data } = await this.api.post<AuthServiceSignInOutput>(
       "/api/auth/sign-in/email-password",
+      input
+    );
+    return data;
+  }
+
+  async signInGoogle(
+    input: AuthServiceSignInGoogleInput
+  ): Promise<AuthServiceSignInOutput> {
+    const { data } = await this.api.post<AuthServiceSignInGoogleOutput>(
+      "/api/auth/sign-in/google",
       input
     );
     return data;

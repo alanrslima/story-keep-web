@@ -19,3 +19,4 @@ export * from "./empty-state";
 export * from "./calendar/calendar";
 export * from "./card";
 export * from "./badge";
+export * from "./polaroid";

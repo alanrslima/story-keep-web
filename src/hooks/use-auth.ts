@@ -2,6 +2,7 @@
 import { AuthService } from "@/services/auth-service";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AuthServiceSignInGoogleInput } from "@/services/contracts/auth-service-contracts";
 
 export function useAuth() {
   const [user, setUser] = useState(null);
@@ -30,6 +31,16 @@ export function useAuth() {
     [router]
   );
 
+  const signInWithGoogle = useCallback(
+    async (credentials: AuthServiceSignInGoogleInput) => {
+      const authService = new AuthService();
+      const { token } = await authService.signInGoogle(credentials);
+      localStorage.setItem("token", token);
+      router.push("/");
+    },
+    [router]
+  );
+
   const signUp = useCallback(
     async (data: { name: string; email: string; password: string }) => {
       const authService = new AuthService();
@@ -47,5 +58,5 @@ export function useAuth() {
     router.push("/sign-in");
   }, [router]);
 
-  return { user, signInWithEmailAndPassword, signUp, logOut };
+  return { user, signInWithEmailAndPassword, signUp, logOut, signInWithGoogle };
 }
