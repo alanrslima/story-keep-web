@@ -4,6 +4,7 @@ import {
   MemoryServiceCreateInput,
   MemoryServiceCreateOutput,
   MemoryServiceDetailInput,
+  MemoryServiceEditInput,
   MemoryServiceGetSourceInput,
   MemoryServiceGetSourceOutput,
   MemoryServiceListOutput,
@@ -48,6 +49,10 @@ export class MemoryService {
       statusBadge: this.statusBadgeMapper(item.status),
       formatedDate: DateUtils.formatDate(item.startDate, "PPP"),
     }));
+  }
+
+  async edit(input: MemoryServiceEditInput): Promise<void> {
+    await this.api.patch("/api/memory", input);
   }
 
   async detail(input: MemoryServiceDetailInput): Promise<MemoryDetail> {

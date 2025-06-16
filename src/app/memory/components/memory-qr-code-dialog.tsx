@@ -16,7 +16,6 @@ export function MemoryQRCodeDialog(props: MemoryQRCodeDialogProps) {
         <QRcode value={props.url} />
         <div className="flex w-full gap-4">
           <Button leadingIcon="Save" title="Salvar" variant="outline" full />
-          <Button leadingIcon="Share" title="Compartilhar" full />
         </div>
       </div>
       <button onClick={copyToClipboard}>Copiar link</button>

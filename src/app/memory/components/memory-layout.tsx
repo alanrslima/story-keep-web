@@ -1,12 +1,14 @@
 "use client";
 
-import { Alert, Button, Card } from "@/components/ui";
+import { Alert, Button, Card, ProgressBar } from "@/components/ui";
 import { useQueryParams } from "@/hooks/use-query-params";
 import { MemoryQRCodeDialog } from "./memory-qr-code-dialog";
 import { GalleryCover } from "@/components/gallery-cover";
 import { ActionCard } from "@/components/ui/action-card";
 import { MemoryDetail, MemoryStatus } from "@/types/memory";
 import { useRouter } from "next/navigation"; // ✅ App Router
+import { GuestsPreview } from "./guests-preview";
+import Link from "next/link";
 
 export type MemoryLayoutProps = {
   memory: MemoryDetail;
@@ -48,24 +50,42 @@ export function MemoryLayout({ memory }: MemoryLayoutProps) {
             title="Voltar"
           />
         </div>
-        <div className="flex gap-2"></div>
+        <div className="flex gap-2">
+          <Link href={{ pathname: "memory/edit", query: { ...screemParams } }}>
+            <Button title="Editar" variant="outline" />
+          </Link>
+          <Button title="Convidar" />
+        </div>
       </div>
       <main className="flex flex-col md:flex-row gap-6 min-h-[400px] ">
-        <section className="flex gap-8 flex-col w-full md:max-w-[340px] items-center">
+        <section className="flex gap-4 flex-col w-full md:max-w-[340px] items-center">
           <Card
             name={memory.name}
             date={memory.formattedDate}
             location={memory.address}
             coverPhoto={memory.coverImage?.url}
           />
-          <ActionCard href={{ query: { ...screemParams, qr: "open" } }} />
+          <ActionCard
+            title="QRCode colaborativo"
+            description="Seus convidados podem ler o qrcode para enviar seus registros"
+            href={{ query: { ...screemParams, qr: "open" } }}
+          />
+          <ActionCard
+            title="Pacote Básico"
+            description="Percentual de memórias recebidas"
+            href={{ query: { ...screemParams, qr: "open" } }}
+          >
+            <ProgressBar percentage={50} />
+          </ActionCard>
         </section>
         <div className="flex flex-col flex-1 gap-8">
           <GalleryCover media={memory.media} isEmpty={!memory.media.length} />
+
+          <GuestsPreview />
         </div>
       </main>
       <MemoryQRCodeDialog
-        url={`https://192.168.160.17:3001/camera?id=${memoryId}`}
+        url={`https://192.168.160.31:3001/camera?id=${memoryId}`}
         onClose={closeQRCode}
         isOpen={showQRCode}
       />

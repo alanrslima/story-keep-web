@@ -19,7 +19,7 @@ export function GalleryCover({ isEmpty, media }: GalleryCoverProps) {
 
   if (isEmpty)
     return (
-      <div className="h-[500px] flex justify-center items-center">
+      <div className="h-[500px] flex justify-center items-center ">
         <EmptyState
           title="Ainda não temos nenhum registro por aqui!"
           message="Compartilhe o qrcode com seus convidados para que este espaço será preenchido com lembranças incríveis =)"

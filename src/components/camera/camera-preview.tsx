@@ -82,7 +82,9 @@ export function CameraPreview(props: CameraPreviewProps) {
     setIsLoading(true);
     mediaService
       .send({ file, memoryId: props.memoryId, personaId: props.personaId })
-      .then(() => alert("Foto enviada com sucesso!"))
+      .then(() => {
+        hide();
+      })
       .catch(console.error)
       .finally(() => setIsLoading(false));
   };

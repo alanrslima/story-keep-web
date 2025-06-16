@@ -30,4 +30,12 @@ export class Api {
     const { data, status } = await this.axiosInstance.post(url, body);
     return { data, status };
   }
+
+  async patch<T>(
+    url: string,
+    body?: unknown
+  ): Promise<{ status: number; data: T }> {
+    const { data, status } = await this.axiosInstance.patch(url, body);
+    return { data, status };
+  }
 }

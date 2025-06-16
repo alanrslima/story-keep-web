@@ -11,6 +11,13 @@ export type MemoryServiceCreateOutput = {
   token?: string;
 };
 
+export type MemoryServiceEditInput = {
+  memoryId: string;
+  name?: string;
+  startDate?: Date;
+  address?: string;
+};
+
 export type MemoryServiceListOutput = {
   id: string;
   name: string;

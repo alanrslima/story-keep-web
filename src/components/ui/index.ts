@@ -20,3 +20,6 @@ export * from "./calendar/calendar";
 export * from "./card";
 export * from "./badge";
 export * from "./polaroid";
+export * from "./simple-line";
+export * from "./popover";
+export * from "./date-input";

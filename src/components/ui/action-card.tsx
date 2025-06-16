@@ -3,9 +3,13 @@ import { Button } from "./button";
 import { Icon } from "./icon";
 import { Typography } from "./typography";
 import { Url } from "url";
+import { ReactNode } from "react";
 
 export type ActionCardProps = {
   href: Partial<Url>;
+  title: string;
+  description: string;
+  children?: ReactNode;
 };
 
 export function ActionCard(props: ActionCardProps) {
@@ -15,11 +19,10 @@ export function ActionCard(props: ActionCardProps) {
         <Icon name="QrCode" />
       </div>
       <div className="flex flex-col gap-1">
-        <Typography type="body-default-bold">QRCode colaborativo</Typography>
-        <Typography>
-          Seus convidados podem ler o qrcode para enviar seus registros
-        </Typography>
+        <Typography type="body-default-bold">{props.title}</Typography>
+        <Typography>{props.description}</Typography>
       </div>
+      {props.children}
       <Link href={props.href}>
         <Button title="Abrir QRCode" full />
       </Link>

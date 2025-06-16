@@ -20,7 +20,7 @@ export function TextInput(props: TextInputProps) {
         {...props}
         id={props.name}
         name={props.name}
-        className="bg-transparent min-h-[44px] px-4 py-3 rounded-md text-sm font-poppins outline-black font-medium border-[1px] border-border-neutral text-content-primary"
+        className="bg-transparent min-h-[44px] px-4 py-3 rounded-md text-sm font-poppins outline-black font-semibold border-[1px] border-border-neutral text-content-primary"
       />
     </div>
   );
