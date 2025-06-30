@@ -19,14 +19,12 @@ export function MemoryPolaroid({
   coverPhoto,
 }: MemoryPolaroidProps) {
   return (
-    <div className="rotate-2">
-      <Polaroid
-        coverPhoto={coverPhoto}
-        date={date && DateUtils.formatDate(date, "PP")}
-        location={location}
-        onChangePhoto={onChangePhoto}
-        name={name}
-      />
-    </div>
+    <Polaroid
+      coverPhoto={coverPhoto}
+      date={date && DateUtils.formatDate(date, "PP")}
+      location={location}
+      onChangePhoto={onChangePhoto}
+      name={name}
+    />
   );
 }

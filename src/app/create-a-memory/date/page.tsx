@@ -3,8 +3,9 @@
 import { StepLayout } from "../components/step-layout";
 import { DateForm } from "../components/date-form";
 import { useRouter } from "next/navigation";
+import { withAuth } from "@/components";
 
-export default function CreateAMemoryDate() {
+function CreateAMemoryDate() {
   const navigate = useRouter();
 
   const onSubmit = async () => {
@@ -17,3 +18,5 @@ export default function CreateAMemoryDate() {
     </StepLayout>
   );
 }
+
+export default withAuth(CreateAMemoryDate);

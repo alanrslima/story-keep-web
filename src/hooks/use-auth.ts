@@ -21,14 +21,30 @@ export function useAuth() {
     }
   }, []);
 
+  const completeFirstLogin = useCallback(async () => {
+    const authService = new AuthService();
+    await authService.completeFirstLogin();
+  }, []);
+
+  const makeRedirect = useCallback(async () => {
+    const authService = new AuthService();
+    const { isFirstLogin } = await authService.getMe();
+    if (isFirstLogin) {
+      router.push("/create-a-memory");
+      completeFirstLogin();
+    } else {
+      router.push("/");
+    }
+  }, [router, completeFirstLogin]);
+
   const signInWithEmailAndPassword = useCallback(
     async (credentials: { email: string; password: string }) => {
       const authService = new AuthService();
       const { token } = await authService.signIn(credentials);
       localStorage.setItem("token", token);
-      router.push("/");
+      makeRedirect();
     },
-    [router]
+    [makeRedirect]
   );
 
   const signInWithGoogle = useCallback(
@@ -58,5 +74,12 @@ export function useAuth() {
     router.push("/sign-in");
   }, [router]);
 
-  return { user, signInWithEmailAndPassword, signUp, logOut, signInWithGoogle };
+  return {
+    user,
+    signInWithEmailAndPassword,
+    signUp,
+    logOut,
+    signInWithGoogle,
+    completeFirstLogin,
+  };
 }

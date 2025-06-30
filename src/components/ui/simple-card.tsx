@@ -1,6 +1,10 @@
 import { Typography } from "./typography";
 
-export function SimpleCard() {
+export type SimpleCardProps = {
+  title: string;
+}
+
+export function SimpleCard(props: SimpleCardProps) {
   return (
     <div className="min-w-[220px] rounded-md overflow-hidden w-full">
       <div
@@ -12,7 +16,7 @@ export function SimpleCard() {
       ></div>
       <div className="rounded-md p-5 border-l-[1px] border-b-[1px] border-r-[1px] border-border-neutral">
         <Typography type="body-default-bold">
-          Encontre registros profissionais com fotógrafos e video makers{" "}
+          {props.title}
         </Typography>
       </div>
     </div>

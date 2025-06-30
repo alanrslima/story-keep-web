@@ -3,8 +3,9 @@
 import { StepLayout } from "../components/step-layout";
 import { LocationForm } from "../components/location-form";
 import { useRouter } from "next/navigation";
+import { withAuth } from "@/components";
 
-export default function CreateAMemoryLocation() {
+function CreateAMemoryLocation() {
   const navigate = useRouter();
 
   const onSubmit = async () => {
@@ -17,3 +18,5 @@ export default function CreateAMemoryLocation() {
     </StepLayout>
   );
 }
+
+export default withAuth(CreateAMemoryLocation);

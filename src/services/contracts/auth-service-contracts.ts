@@ -17,6 +17,7 @@ export type AuthServiceGetMeOutput = {
   id: string;
   name: string;
   permissions: string[];
+  isFirstLogin: boolean;
 };
 
 export type AuthServiceSignInGoogleInput = {

@@ -53,7 +53,7 @@ export function Polaroid({
         style={{
           backgroundImage: coverPhoto
             ? `url(${coverPhoto})`
-            : "url('/noisy-gradient-1.png')",
+            : "url('/noisy-gradient-1.webp')",
         }}
         className="bg-cover w-full min-w-[300px]  overflow-hidden rounded-md h-[420px] flex flex-col"
       >

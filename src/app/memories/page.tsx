@@ -15,7 +15,7 @@ function Memories() {
         <Headline
           title="Seus álbuns de memórias"
           rightComponent={
-            <Link href={{ pathname: "/create-a-memory/name" }}>
+            <Link href={{ pathname: "/create-a-memory" }}>
               <Button title="Criar álbum" leadingIcon="Plus" />
             </Link>
           }
@@ -27,7 +27,7 @@ function Memories() {
           title="Crie um álbum de memórias"
           message="E começe a receber memórias compartilhadas de quem você mais ama"
           footerComponent={
-            <Link href={{ pathname: "/create-a-memory/name" }}>
+            <Link href={{ pathname: "/create-a-memory" }}>
               <Button title="Criar álbum" leadingIcon="Plus" />
             </Link>
           }

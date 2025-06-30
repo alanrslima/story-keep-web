@@ -34,6 +34,12 @@ export class AuthService {
     return data;
   }
 
+  async completeFirstLogin(): Promise<void> {
+    await this.api.post<AuthServiceSignInOutput>(
+      "/api/auth/complete-first-login"
+    );
+  }
+
   async signInGoogle(
     input: AuthServiceSignInGoogleInput
   ): Promise<AuthServiceSignInOutput> {
