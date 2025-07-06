@@ -1,14 +1,18 @@
 import { Button, Calendar, Form, Typography } from "@/components/ui";
 import { useMemory } from "@/hooks/use-memory";
+import { MemoryService } from "@/services/memory-service";
 
 export type DateFormProps = {
   onSubmit(): Promise<void>;
+  id: string;
 };
 
 export function DateForm(props: DateFormProps) {
   const { setStartDate, startDate } = useMemory();
 
   const onSubmit = async () => {
+    const memoryService = new MemoryService();
+    await memoryService.update({ startDate, id: props.id });
     return await props.onSubmit();
   };
 

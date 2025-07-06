@@ -1,6 +1,6 @@
-import { MemoryServiceCreateOutput } from "@/services/contracts/memory-service-contracts";
+import { useQueryParams } from "@/hooks/use-query-params";
 import { MemoryService } from "@/services/memory-service";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 type MemoryContextProps = {
   name: string;
@@ -10,10 +10,9 @@ type MemoryContextProps = {
   location: string;
   setLocation(location: string): void;
   coverPhoto?: string;
-  setCoverPhoto(coverPhoto: string): void;
-  packageId: string;
-  setPackageId(packageId: string): void;
-  create(): Promise<MemoryServiceCreateOutput>;
+  planId: string;
+  setPlanId(planId: string): void;
+  onChangeCoverPhoto(photoString: string): void;
   clientSecret?: string;
   setClientSecret(clientSecret?: string): void;
 };
@@ -36,27 +35,43 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState<Date>();
   const [location, setLocation] = useState("");
-  const [packageId, setPackageId] = useState("");
+  const [planId, setPlanId] = useState("");
   const [coverPhoto, setCoverPhoto] = useState("");
   const [clientSecret, setClientSecret] = useState<string>();
 
-  const generateFile = (): File | undefined => {
-    if (!coverPhoto) return undefined;
-    const contentType = coverPhoto.split(";")[0].split(":")[1];
-    const blob = base64ToBlob(coverPhoto, contentType);
+  const { getQueryParams } = useQueryParams();
+  const screenParams = getQueryParams();
+
+  useEffect(() => {
+    if (screenParams.id) {
+      const memoryService = new MemoryService();
+      memoryService
+        .detail({ memoryId: screenParams.id })
+        .then((res) => {
+          setName(res.name || "");
+          setLocation(res.address || "");
+          setStartDate(res.startDate ? new Date(res.startDate) : undefined);
+          setCoverPhoto(res.coverImage?.url || "");
+          setPlanId(res.plan?.id || "");
+        })
+        .catch(console.error);
+    }
+  }, [screenParams.id]);
+
+  const generateFile = (photoString: string): File | undefined => {
+    const contentType = photoString.split(";")[0].split(":")[1];
+    const blob = base64ToBlob(photoString, contentType);
     return new File([blob], "image.png", { type: contentType });
   };
 
-  const create = async (): Promise<MemoryServiceCreateOutput> => {
+  function onChangeCoverPhoto(photoString: string) {
+    setCoverPhoto(photoString);
     const memoryService = new MemoryService();
-    return await memoryService.create({
-      address: location,
-      startDate,
-      name,
-      packageId,
-      file: generateFile(),
+    memoryService.update({
+      file: generateFile(photoString),
+      id: screenParams.id,
     });
-  };
+  }
 
   return (
     <MemoryContext.Provider
@@ -66,13 +81,12 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
         location,
         clientSecret,
         coverPhoto,
-        packageId,
+        planId,
         setName,
         setLocation,
         setStartDate,
-        setCoverPhoto,
-        setPackageId,
-        create,
+        setPlanId,
+        onChangeCoverPhoto,
         setClientSecret,
       }}
     >

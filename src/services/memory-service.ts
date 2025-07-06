@@ -1,13 +1,14 @@
 import { DateUtils } from "@/utils/date-utils";
 import { Api } from "./api";
 import {
-  MemoryServiceCreateInput,
-  MemoryServiceCreateOutput,
+  MemoryServiceCreateOrderIntentInput,
   MemoryServiceDetailInput,
   MemoryServiceEditInput,
   MemoryServiceGetSourceInput,
   MemoryServiceGetSourceOutput,
   MemoryServiceListOutput,
+  MemoryServiceSelectPlanInput,
+  MemoryServiceUpdateInput,
 } from "./contracts/memory-service-contracts";
 import { PlanList } from "@/types/plan";
 import { MemoryDetail } from "@/types/memory";
@@ -20,27 +21,22 @@ export class MemoryService {
     this.api = new Api();
   }
 
-  async create(
-    input: MemoryServiceCreateInput
-  ): Promise<MemoryServiceCreateOutput> {
-    const formData = FormUtils.objectToFormData(input);
-    const { data } = await this.api.post<{ id: string; token?: string }>(
-      "/api/memory",
-      formData
-    );
+  public async init() {
+    const { data } = await this.api.post<{ id: string }>("/api/memory/init");
     return data;
   }
 
-  private statusBadgeMapper(status: string) {
-    const mapper = {
-      awaiting_payment: "Aguardando pagamento",
-      payment_failed: "Falha de pagamento",
-      canceled: "Cancelado",
-    };
-    return mapper[status as keyof typeof mapper];
+  async update(input: MemoryServiceUpdateInput) {
+    const formData = FormUtils.objectToFormData(input);
+    const { data } = await this.api.patch("/api/memory", formData);
+    return data;
   }
 
-  async list(): Promise<MemoryServiceListOutput[]> {
+  async selectPlan(input: MemoryServiceSelectPlanInput) {
+    await this.api.patch("/api/memory/select-plan", input);
+  }
+
+  public async list(): Promise<MemoryServiceListOutput[]> {
     const { data } = await this.api.get<
       Omit<MemoryServiceListOutput, "formatedDate">[]
     >("/api/memory");
@@ -51,8 +47,28 @@ export class MemoryService {
     }));
   }
 
+  public async createOrderIntent(input: MemoryServiceCreateOrderIntentInput) {
+    const { data } = await this.api.post<{ token: string }>(
+      "/api/memory/order/intent",
+      input
+    );
+    return data;
+  }
+
+  /**
+   * @abstract use update function instead
+   **/
   async edit(input: MemoryServiceEditInput): Promise<void> {
     await this.api.patch("/api/memory", input);
+  }
+
+  private statusBadgeMapper(status: string) {
+    const mapper = {
+      awaiting_payment: "Aguardando pagamento",
+      payment_failed: "Falha de pagamento",
+      canceled: "Cancelado",
+    };
+    return mapper[status as keyof typeof mapper];
   }
 
   async detail(input: MemoryServiceDetailInput): Promise<MemoryDetail> {
@@ -67,7 +83,7 @@ export class MemoryService {
     };
   }
 
-  async getSource(
+  public async getSource(
     input: MemoryServiceGetSourceInput
   ): Promise<MemoryServiceGetSourceOutput> {
     const { data } = await this.api.get<MemoryServiceGetSourceOutput>(
@@ -77,7 +93,7 @@ export class MemoryService {
     return data;
   }
 
-  async listPlans(): Promise<PlanList[]> {
+  public async listPlans(): Promise<PlanList[]> {
     const { data } = await this.api.get<PlanList[]>("/api/memory/plan");
     return data;
   }

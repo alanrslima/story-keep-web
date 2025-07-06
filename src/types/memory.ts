@@ -20,6 +20,13 @@ export type MemoryDetail = MemoriesListItem & {
   createdAt: string;
   coverImage?: { url: string };
   status: MemoryStatus;
+  plan?: {
+    currencyCode: string;
+    description: string;
+    id: string;
+    name: string;
+    price: number;
+  };
 };
 
 export type MemoryStatus =

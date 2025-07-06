@@ -6,34 +6,33 @@ import {
   Typography,
 } from "@/components/ui";
 import { useMemory } from "@/hooks/use-memory";
+import { MemoryService } from "@/services/memory-service";
 import { PlanList } from "@/types/plan";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 export type PlansFormProps = {
   plans: PlanList[];
+  id: string;
 };
 
-export function PlansForm({ plans }: PlansFormProps) {
+export function PlansForm(props: PlansFormProps) {
   const navigate = useRouter();
 
-  const { create, setPackageId, packageId, setClientSecret } = useMemory();
-
-  const plan = useMemo(() => {
-    return plans.find((item) => item.id === packageId);
-  }, [plans, packageId]);
+  const { setPlanId, planId, setClientSecret } = useMemory();
 
   const onSubmit = async () => {
-    const { id, token } = await create();
+    const memoryService = new MemoryService();
+    await memoryService.selectPlan({ memoryId: props.id, planId });
+    const { token } = await memoryService.createOrderIntent({
+      memoryId: props.id,
+    });
     setClientSecret(token);
-    if ((plan?.priceCents || 0) > 0) {
-      return navigate.replace(`payment?id=${id}`);
-    }
-    navigate.replace(`success?id=${id}`);
+    navigate.replace(`payment?id=${props.id}`);
   };
 
   const options = useMemo(() => {
-    return plans?.map(
+    return props.plans?.map(
       (item) =>
         ({
           title: item.name,
@@ -42,7 +41,7 @@ export function PlansForm({ plans }: PlansFormProps) {
           price: item.priceLabel,
         } as RadioGroupOptionsProps)
     );
-  }, [plans]);
+  }, [props.plans]);
 
   return (
     <Form onSubmit={onSubmit}>
@@ -54,11 +53,7 @@ export function PlansForm({ plans }: PlansFormProps) {
               Escolha o pacote que mais se adapta a sua necessidade
             </Typography>
           </div>
-          <RadioGroup
-            onChange={setPackageId}
-            options={options}
-            value={packageId}
-          />
+          <RadioGroup onChange={setPlanId} options={options} value={planId} />
           <div className="flex gap-4">
             <Button type="submit" isLoading={isLoading} title="Continuar" />
           </div>

@@ -52,7 +52,7 @@ export function Card({
       style={{
         backgroundImage: coverPhoto
           ? `url(${coverPhoto})`
-          : "url('/noisy-gradient-1.png')",
+          : "url('/noisy-gradient-1.webp')",
       }}
       className="bg-cover w-full min-w-[300px]  overflow-hidden rounded-md h-[530px] shadow-xl shadow-background-elevated flex flex-col"
     >

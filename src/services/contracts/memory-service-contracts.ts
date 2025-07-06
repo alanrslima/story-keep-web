@@ -1,14 +1,23 @@
-export type MemoryServiceCreateInput = {
-  name: string;
-  packageId: string;
+export type MemoryServiceUpdateInput = {
+  id: string;
+  name?: string;
   startDate?: Date;
   address?: string;
   file?: File;
 };
 
-export type MemoryServiceCreateOutput = {
-  id: string;
-  token?: string;
+export type MemoryServiceSelectPlanInput = {
+  memoryId: string;
+  planId: string;
+};
+
+export type MemoryServiceInput = {
+  memoryId: string;
+  planId: string;
+};
+
+export type MemoryServiceCreateOrderIntentInput = {
+  memoryId: string;
 };
 
 export type MemoryServiceEditInput = {

@@ -1,7 +1,9 @@
 import { Button, Form, TextArea, Typography } from "@/components/ui";
 import { useMemory } from "@/hooks/use-memory";
+import { MemoryService } from "@/services/memory-service";
 
 export type NameFormProps = {
+  id: string;
   onSubmit(): Promise<void>;
 };
 
@@ -9,6 +11,8 @@ export function NameForm(props: NameFormProps) {
   const { setName, name } = useMemory();
 
   const onSubmit = async () => {
+    const memoryService = new MemoryService();
+    await memoryService.update({ name, id: props.id });
     await props.onSubmit();
   };
 

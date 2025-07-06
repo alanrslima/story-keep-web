@@ -17,7 +17,7 @@ export function ItemTile(props: ItemTileProps) {
         style={{
           backgroundImage: props.imageUrl
             ? `url(${props.imageUrl})`
-            : "url('/noisy-gradient-1.png')",
+            : "url('/noisy-gradient-1.webp')",
         }}
         className="min-h-[420px] relative bg-background-neutral bg-cover rounded-md"
       >
