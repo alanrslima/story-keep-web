@@ -47,7 +47,7 @@ export default function CreateAMemoryPage() {
                     </Typography>
                     <Typography>
                       <Typography type="body-default-bold">
-                        Convide, compartilhe, reviva.
+                        Convide, compartilhe, reviva.{" "}
                       </Typography>
                       Comece agora a guardar momentos que vão emocionar por
                       muitos anos.

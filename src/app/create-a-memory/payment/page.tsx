@@ -9,16 +9,21 @@ import { PaymentForm } from "../components/payment-form";
 import { useQueryParams } from "@/hooks/use-query-params";
 
 const stripePromise = loadStripe(
-  "pk_test_51OGJDBKmfbamMwdpgyoGb2ZNrLmpNwXACS53gMNaztK5tVgliwtelPAY31aLhLS84gAgHPXn5T8BpIkpaKRM5Nhz00ThfrVeAO"
+  "pk_test_51RhsrgBDMOmWm84XVMLSr9oDFF4dCs4O2duGRorynFDwAHdLyaQBv3wEi7vuHY2VWgsm9mJ8KGKDd3vV5e0jp0Se00feEOy2mM"
 );
 
 function CreateAMemoryPayment() {
   const { clientSecret } = useMemory();
-  const { getQueryParam } = useQueryParams();
-  const id = getQueryParam("id");
+
+  const { getQueryParams } = useQueryParams();
+  const screenParams = getQueryParams();
 
   return (
-    <StepLayout previousPercentage={80} percentage={100} previousPath="plans">
+    <StepLayout
+      previousPercentage={80}
+      percentage={100}
+      previousPath={`plans?id=${screenParams.id}`}
+    >
       <Elements
         stripe={stripePromise}
         options={{
@@ -26,7 +31,9 @@ function CreateAMemoryPayment() {
           appearance: { theme: "flat" },
         }}
       >
-        {clientSecret && id && <PaymentForm id={id} />}
+        {clientSecret && screenParams.id && (
+          <PaymentForm id={screenParams.id} />
+        )}
       </Elements>
     </StepLayout>
   );
