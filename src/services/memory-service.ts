@@ -55,18 +55,10 @@ export class MemoryService {
     return data;
   }
 
-  /**
-   * @abstract use update function instead
-   **/
-  async edit(input: MemoryServiceEditInput): Promise<void> {
-    await this.api.patch("/api/memory", input);
-  }
-
   private statusBadgeMapper(status: string) {
     const mapper = {
-      awaiting_payment: "Aguardando pagamento",
-      payment_failed: "Falha de pagamento",
-      canceled: "Cancelado",
+      PENDING: "Aguardando pagamento",
+      CANCELED: "Cancelado",
     };
     return mapper[status as keyof typeof mapper];
   }

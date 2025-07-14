@@ -1,5 +1,6 @@
 import { useQueryParams } from "@/hooks/use-query-params";
 import { MemoryService } from "@/services/memory-service";
+import { FileUtils } from "@/utils/file-utils";
 import React, { createContext, useEffect, useState } from "react";
 
 type MemoryContextProps = {
@@ -20,16 +21,6 @@ type MemoryContextProps = {
 export const MemoryContext = createContext<MemoryContextProps>(
   {} as MemoryContextProps
 );
-
-function base64ToBlob(base64: string, contentType = "") {
-  const byteCharacters = atob(base64.split(",")[1]);
-  const byteArrays = [];
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteArrays.push(byteCharacters.charCodeAt(i));
-  }
-  const byteArray = new Uint8Array(byteArrays);
-  return new Blob([byteArray], { type: contentType });
-}
 
 export function MemoryProvider({ children }: { children: React.ReactNode }) {
   const [name, setName] = useState("");
@@ -58,17 +49,11 @@ export function MemoryProvider({ children }: { children: React.ReactNode }) {
     }
   }, [screenParams.id]);
 
-  const generateFile = (photoString: string): File | undefined => {
-    const contentType = photoString.split(";")[0].split(":")[1];
-    const blob = base64ToBlob(photoString, contentType);
-    return new File([blob], "image.png", { type: contentType });
-  };
-
   function onChangeCoverPhoto(photoString: string) {
     setCoverPhoto(photoString);
     const memoryService = new MemoryService();
     memoryService.update({
-      file: generateFile(photoString),
+      file: FileUtils.generateFile(photoString),
       id: screenParams.id,
     });
   }

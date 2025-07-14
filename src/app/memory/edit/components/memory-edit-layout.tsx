@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { MemoryDetail } from "@/types/memory";
 import { useState } from "react";
 import { MemoryService } from "@/services/memory-service";
+import { FileUtils } from "@/utils/file-utils";
 
 type MemoryEditLayoutProps = {
   memory: MemoryDetail;
@@ -24,13 +25,24 @@ export function MemoryEditLayout({ memory }: MemoryEditLayoutProps) {
   const [name, setName] = useState(memory.name);
   const [startDate, setStartDate] = useState(memory.startDate);
   const [address, setAddress] = useState(memory.address);
+  const [coverPhoto, setCoverPhoto] = useState<string | undefined>(
+    memory.coverImage?.url
+  );
 
-  const memoryId = getQueryParam("id") || "";
+  const id = getQueryParam("id") || "";
 
   async function onSubmit() {
     const memoryService = new MemoryService();
-    await memoryService.edit({ memoryId, address, name, startDate });
+    await memoryService.update({ id, address, name, startDate });
     router.back();
+  }
+
+  function onChangePhoto(photo: string) {
+    setCoverPhoto(photo);
+    const memoryService = new MemoryService();
+    memoryService
+      .update({ id, file: FileUtils.generateFile(photo) })
+      .catch(console.error);
   }
 
   return (
@@ -77,13 +89,14 @@ export function MemoryEditLayout({ memory }: MemoryEditLayoutProps) {
             )}
           </Form>
         </section>
-        <section className="hidden col-span-2 md:flex justify-center items-center">
+        <section className="col-span-2 flex justify-center items-center">
           <div className="max-w-[340px]">
             <Polaroid
               name={name}
               date={startDate?.toLocaleDateString()}
               location={address}
-              coverPhoto={memory.coverImage?.url}
+              coverPhoto={coverPhoto}
+              onChangePhoto={onChangePhoto}
             />
           </div>
         </section>

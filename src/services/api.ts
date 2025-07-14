@@ -8,7 +8,7 @@ export class Api {
   constructor() {
     this.token = localStorage.getItem("token");
     this.axiosInstance = axios.create({
-      baseURL: "http://localhost:3000",
+      baseURL: "http://192.168.160.23:3000",
       headers: {
         Authorization: `Bearer ${this.token}`,
       },

@@ -6,21 +6,22 @@ import { MemoryQRCodeDialog } from "./memory-qr-code-dialog";
 import { GalleryCover } from "@/components/gallery-cover";
 import { ActionCard } from "@/components/ui/action-card";
 import { MemoryDetail, MemoryStatus } from "@/types/memory";
-import { useRouter } from "next/navigation"; // ✅ App Router
+import { useRouter } from "next/navigation";
 import { GuestsPreview } from "./guests-preview";
 import Link from "next/link";
+import { useMemo } from "react";
 
 export type MemoryLayoutProps = {
   memory: MemoryDetail;
 };
 
 function MemoryAlert(props: { status: MemoryStatus }) {
-  if (props.status === "ready") return <></>;
+  if (props.status === "READY") return <></>;
 
   return (
     <Alert
       type="negative"
-      title="Pagamento não efetuado"
+      title="Aguardando confirmação de pagamento"
       message="Após o pagamento ser confirmado o seu baú poderá receber memórias compartilhadas."
     />
   );
@@ -38,6 +39,13 @@ export function MemoryLayout({ memory }: MemoryLayoutProps) {
     removeQueryParam("qr");
   };
 
+  const planPercentage = useMemo(() => {
+    const total =
+      memory.plan?.photosLimit || 0 + (memory.plan?.videosLimit || 0);
+    const used = memory.photosCount + memory.videosCount;
+    return (used * 100) / total;
+  }, [memory]);
+
   return (
     <main className="flex flex-col gap-4">
       <MemoryAlert status={memory.status} />
@@ -52,9 +60,9 @@ export function MemoryLayout({ memory }: MemoryLayoutProps) {
         </div>
         <div className="flex gap-2">
           <Link href={{ pathname: "memory/edit", query: { ...screemParams } }}>
-            <Button title="Editar" variant="outline" />
+            <Button title="Editar" variant="outline" leadingIcon="Pencil" />
           </Link>
-          <Button title="Convidar" />
+          <Button title="Compartilhar" leadingIcon="Share" />
         </div>
       </div>
       <main className="flex flex-col md:flex-row gap-6 min-h-[400px] ">
@@ -66,16 +74,23 @@ export function MemoryLayout({ memory }: MemoryLayoutProps) {
             coverPhoto={memory.coverImage?.url}
           />
           <ActionCard
+            iconName="QrCode"
             title="QRCode colaborativo"
             description="Seus convidados podem ler o qrcode para enviar seus registros"
             href={{ query: { ...screemParams, qr: "open" } }}
+            actionButton={{ title: "Abrir QRcode" }}
           />
           <ActionCard
-            title="Pacote Básico"
+            iconName="Package"
+            title={memory.plan?.name || ""}
             description="Percentual de memórias recebidas"
-            href={{ query: { ...screemParams, qr: "open" } }}
+            actionButton={{
+              title: "Upgrade de pacote",
+              leadingIcon: "PartyPopper",
+              variant: "secondary",
+            }}
           >
-            <ProgressBar percentage={50} />
+            <ProgressBar showPercentage percentage={planPercentage} />
           </ActionCard>
         </section>
         <div className="flex flex-col flex-1 gap-8">

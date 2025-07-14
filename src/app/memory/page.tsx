@@ -1,6 +1,5 @@
 "use client";
 
-// import { Suspense } from "react";
 import { MemoryLayout } from "./components/memory-layout";
 import { DefaultScreen, withAuth } from "@/components";
 import { useQueryParams } from "@/hooks/use-query-params";
@@ -16,8 +15,6 @@ function MemoryPage() {
       {memory && <MemoryLayout memory={memory} />}
     </DefaultScreen>
   );
-
-  // return <Suspense>{memory && <MemoryLayout memory={memory} />}</Suspense>;
 }
 
 export default withAuth(MemoryPage);

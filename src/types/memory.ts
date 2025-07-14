@@ -26,13 +26,9 @@ export type MemoryDetail = MemoriesListItem & {
     id: string;
     name: string;
     price: number;
+    photosLimit: number;
+    videosLimit: number;
   };
 };
 
-export type MemoryStatus =
-  | "created"
-  | "awaiting_payment"
-  | "paid"
-  | "failed"
-  | "canceled"
-  | "ready";
+export type MemoryStatus = "PENDING" | "CANCELED" | "READY";
